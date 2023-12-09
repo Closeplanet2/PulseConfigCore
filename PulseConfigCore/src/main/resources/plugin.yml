@@ -1,4 +1,0 @@
-name: PulseConfigCore
-version: '${project.version}'
-main: com.pandapulsestudios.pulseconfigcore.PulseConfigCore
-api-version: '1.20'
