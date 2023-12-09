@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="sonatype" />
+      <option name="name" value="sonatype" />
+      <option name="url" value="https://oss.sonatype.org/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pandasidebarcore" />
+      <option name="name" value="pandasidebarcore" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PandaSideBarCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pulsecore" />
+      <option name="name" value="pulsecore" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pulse-config" />
+      <option name="name" value="pulse-config" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseConfig" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pulseconfig" />
+      <option name="name" value="pulseconfig" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseConfig" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="github" />
+      <option name="name" value="github" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="central" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pandacommandcore" />
+      <option name="name" value="pandacommandcore" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PandaCommandCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pulsevariable" />
+      <option name="name" value="pulsevariable" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseVariable" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="spigot-repo" />
+      <option name="name" value="spigot-repo" />
+      <option name="url" value="https://hub.spigotmc.org/nexus/content/repositories/snapshots/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="PulseConfig" />
+      <option name="name" value="PulseConfig" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseConfig" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="spigotmc-repo" />
+      <option name="name" value="spigotmc-repo" />
+      <option name="url" value="https://hub.spigotmc.org/nexus/content/repositories/snapshots/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pandaconfigcore" />
+      <option name="name" value="pandaconfigcore" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PandaConfigCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="github" />
+      <option name="name" value="github" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseBossBar" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="github" />
+      <option name="name" value="github" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseConfig" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="PulseConfigCore" />
+      <option name="name" value="PulseConfigCore" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PandaConfigCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pandabossbarcore" />
+      <option name="name" value="pandabossbarcore" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PandaBossBarCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pandaspigotcore" />
+      <option name="name" value="pandaspigotcore" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PandaSpigotCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="pandavariablecore" />
+      <option name="name" value="pandavariablecore" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PandaVariableCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="github" />
+      <option name="name" value="github" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseVariable" />
+    </remote-repository>
+  </component>
+</project>

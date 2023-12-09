@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.pandapulsestudios</groupId>
-    <artifactId>PulseConfigCore</artifactId>
+    <artifactId>pulseconfig</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>PulseConfigCore</name>
 
     <distributionManagement>
         <repository>
-            <id>PulseConfigCore</id>
-            <name>PulseConfigCore</name>
-            <url>https://maven.pkg.github.com/closeplanet2/PandaConfigCore</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/closeplanet2/PulseConfig</url>
         </repository>
     </distributionManagement>
 
@@ -25,16 +25,12 @@
 
     <repositories>
         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>pulsecore</id>
+            <url>https://maven.pkg.github.com/closeplanet2/PulseCore</url>
         </repository>
         <repository>
-            <id>pandaspigotcore</id>
-            <url>https://maven.pkg.github.com/closeplanet2/PandaSpigotCore</url>
-        </repository>
-        <repository>
-            <id>pandavariablecore</id>
-            <url>https://maven.pkg.github.com/closeplanet2/PandaVariableCore</url>
+            <id>pulsevariable</id>
+            <url>https://maven.pkg.github.com/closeplanet2/PulseVariable</url>
         </repository>
     </repositories>
 
@@ -50,14 +46,14 @@
             <version>3.4.2</version>
         </dependency>
         <dependency>
-            <groupId>com.closeplanet2</groupId>
-            <artifactId>pandaspigotcore</artifactId>
-            <version>1.0.0-beta</version>
+            <groupId>com.pandapulsestudios</groupId>
+            <artifactId>pulsecore</artifactId>
+            <version>1.0.0-a</version>
         </dependency>
         <dependency>
-            <groupId>com.closeplanet2</groupId>
-            <artifactId>pandavariablecore</artifactId>
-            <version>1.0.0-beta</version>
+            <groupId>com.pandapulsestudios</groupId>
+            <artifactId>pulsevariable</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,4 +1,6 @@
 name: PulseConfig
-version: '${project.version}'
-main: com.pandapulsestudios.pulseconfig.PulseConfig
-api-version: '1.20'
+version: 1.0.0-a
+main: com.pandapulsestudios.pulseconfig.PulseConfigMain
+authors: [Closeplanet2, PandaPulseStudios]
+depend: [PulseCore, PulseVariable]
+api-version: 1.20
