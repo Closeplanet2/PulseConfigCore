@@ -1,6 +1,6 @@
 <h2 align="center">
 <br>
-<img src="images/PandaConfigCore.png" alt="Panda Config Core" width="600">
+<img src="Images/Logo.png" alt="Panda Config Core" width="600">
 <br>
 </h2>
 
