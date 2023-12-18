@@ -10,8 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="PulseConfig" target="1.8" />
-      <module name="PulseConfigCore" target="17" />
+      <module name="PulseConfig" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

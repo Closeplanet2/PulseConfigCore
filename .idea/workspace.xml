@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="OUT" />
+      <artifact name="SERVER" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fdc62d88-7d52-4eea-a50f-16003847fbf2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/artifacts/OUT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/artifacts/SERVER.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/Images/Logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/PulseConfigCore.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/out/artifacts/OUT/pulseconfig.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/pulseconfig.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Helpers/Serializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Helpers/SerializerHelpers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Interface/ConfigHeader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Interface/IgnoreSave.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PandaClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PandaConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PandaMongo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Interface/SaveName.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Mongo/MongoAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Objects/MongoConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/Objects/ServerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/java/com/pandapulsestudios/pulseconfig/PulseConfigMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/src/main/resources/plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/PulseConfigCore-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Helpers/Serializer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Helpers/SerializerHelpers.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Interface/ConfigHeader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Interface/IgnoreSave.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Interface/PandaClass.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Interface/PandaConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Interface/PandaMongo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Interface/SaveName.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Mongo/MongoAPI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Objects/MongoConnection.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/Objects/ServerConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/com/pandapulsestudios/pulseconfig/PulseConfigMain.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/classes/plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/pulseconfig-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/pulseconfig-1.0.0-a.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/pulseconfig-1.0.1-a.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/pulseconfig-1.0.2-a.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PulseConfigV1/target/pulseconfig-1.0.3-a.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/APIS/ConfigAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/APIS/MongoAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Object/ConfigObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Object/MongoObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializers/ConfigDeSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializers/ConfigSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializers/MongoDeSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializers/MongoSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializers/SerializerHelpers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/TestClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/TestConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/APIS/ConfigAPI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Object/ConfigObject.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/TestConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/OUT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/OUT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/SERVER.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/SERVER.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PulseConfigCore.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/OUT/pulseconfig.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OUT/pulseconfig.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Helpers/Serializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Helpers/SerializerHelpers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/ConfigHeader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PandaClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PandaClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PandaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PandaConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PandaMongo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PandaMongo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Mongo/MongoAPI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/MongoConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/ServerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/PulseConfigMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/PulseConfigMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/PulseConfigCore-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Helpers/Serializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Helpers/SerializerHelpers.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/ConfigHeader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/PandaClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/PandaClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/PandaConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/PandaConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/PandaMongo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/PandaMongo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Mongo/MongoAPI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/MongoConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/ServerConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/PulseConfigMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/PulseConfigMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pulseconfig-1.0-SNAPSHOT.jar" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2ZbLg0Oxe9JtdSPnRtoKbFZTt6V" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Coding Portfolio/Spigot Plugins/_Servers/plugins",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenSettings"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PulseConfig package" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="package" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fdc62d88-7d52-4eea-a50f-16003847fbf2" name="Changes" comment="" />
+      <created>1702685940148</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702685940148</updated>
+      <workItem from="1702685941198" duration="7617000" />
+      <workItem from="1702754486119" duration="1352000" />
+      <workItem from="1702758559021" duration="1329000" />
+      <workItem from="1702774460887" duration="6586000" />
+      <workItem from="1702824915377" duration="3252000" />
+      <workItem from="1702831255985" duration="12386000" />
+      <workItem from="1702859492145" duration="1765000" />
+      <workItem from="1702911918902" duration="17128000" />
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

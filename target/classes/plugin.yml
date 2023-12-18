@@ -1,6 +1,6 @@
 name: PulseConfig
-version: 1.0.0-a
+version: 1.0.4-a
 main: com.pandapulsestudios.pulseconfig.PulseConfigMain
 authors: [Closeplanet2, PandaPulseStudios]
-depend: [PulseCore, PulseVariable]
+depend: [PulseVariable, PulseCore]
 api-version: 1.20
