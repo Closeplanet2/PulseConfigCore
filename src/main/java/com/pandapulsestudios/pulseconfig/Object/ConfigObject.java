@@ -26,7 +26,8 @@ public class ConfigObject {
 
     private void SaveConfig(){
         try { fileConfiguration.save(file); }
-        catch (IOException e) { e.printStackTrace(); }
+        catch (IOException e) { e.printStackTrace(); 
+        }
     }
 
     public void ClearConfig(){
