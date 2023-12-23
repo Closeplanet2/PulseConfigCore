@@ -32,6 +32,6 @@
 <dependency>
   <groupId>com.pandapulsestudios</groupId>
   <artifactId>pulseconfig</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.4-a</version>
 </dependency>
 ```
