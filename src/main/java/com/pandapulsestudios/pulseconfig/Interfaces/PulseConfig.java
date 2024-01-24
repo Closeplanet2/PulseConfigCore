@@ -37,6 +37,12 @@ public interface PulseConfig {
         else ConfigDeSerializer.LoadConfig(this, configObject);
     }
 
+    default void DeleteConfig(Class<?> mainClass){
+        var configPath = ConfigAPI.ReturnConfigPath(mainClass, getClass());
+        var configObject = new ConfigObject(configPath, documentID());
+        configObject.DeleteConfig();
+    }
+
     default String ToString(Class<?> mainClass){
         var configPath = ConfigAPI.ReturnConfigPath(mainClass, getClass());
         var configObject = new ConfigObject(configPath, documentID());

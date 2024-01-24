@@ -47,6 +47,10 @@ public class ConfigObject {
         catch (IOException e) { e.printStackTrace();}
     }
 
+    public void DeleteConfig(){
+        file.delete();
+    }
+
     public void ClearConfig(){
         for(var s : fileConfiguration.getKeys(false)){
             Set(s, null, false);

@@ -62,6 +62,9 @@ public class ConfigDeSerializer {
             if(data.getClass() == String.class){
                 var UUIDVariableTest = VariableAPI.RETURN_TEST_FROM_TYPE(UUID.class);
                 if(UUIDVariableTest.IsType(configObject)) return UUIDVariableTest.DeSerializeData(configObject);
+
+                var IntVariableTest = VariableAPI.RETURN_TEST_FROM_TYPE(Integer.class);
+                if(IntVariableTest.IsType(configObject)) return IntVariableTest.DeSerializeData(configObject);
             }
 
             return variableTest.DeSerializeData(configObject);
