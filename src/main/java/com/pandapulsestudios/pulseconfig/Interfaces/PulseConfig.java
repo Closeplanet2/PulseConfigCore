@@ -10,6 +10,10 @@ import org.bukkit.ChatColor;
 public interface PulseConfig {
     String documentID();
     default void FirstLoad(){}
+    default void BeforeLoad(){}
+    default void AfterLoad(){}
+    default void BeforeSave(){}
+    default void AfterSave(){}
 
     default void Save(Class<?> mainClass, boolean clearConfig, boolean debugSave){
         try {SaveRaw(mainClass, clearConfig, debugSave, false);}
@@ -22,7 +26,6 @@ public interface PulseConfig {
     }
 
     default void SaveRaw(Class<?> mainClass, boolean clearConfig, boolean debugSave, boolean firstLoad) throws Exception {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Trying to save file!");
         var configPath = ConfigAPI.ReturnConfigPath(mainClass, getClass());
         var configObject = new ConfigObject(configPath, documentID());
         if(clearConfig) configObject.ClearConfig();
