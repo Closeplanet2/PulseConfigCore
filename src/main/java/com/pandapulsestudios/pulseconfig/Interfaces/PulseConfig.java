@@ -6,6 +6,7 @@ import com.pandapulsestudios.pulseconfig.Serializers.ConfigDeSerializer;
 import com.pandapulsestudios.pulseconfig.Serializers.ConfigSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public interface PulseConfig {
     String documentID();
@@ -15,13 +16,13 @@ public interface PulseConfig {
     default void BeforeSave(){}
     default void AfterSave(){}
 
-    default void Save(Class<?> mainClass, boolean clearConfig, boolean debugSave){
-        try {SaveRaw(mainClass, clearConfig, debugSave, false);}
+    default void Save(Class<?> mainClass, boolean clearConfig, boolean debugSave, boolean firstLoad){
+        try {SaveRaw(mainClass, clearConfig, debugSave, firstLoad);}
         catch (Exception e) {throw new RuntimeException(e);}
     }
 
-    default void Load(Class<?> mainClass, boolean clearConfig, boolean debugSave){
-        try {LoadRaw(mainClass, clearConfig, debugSave);}
+    default void Load(JavaPlugin javaPlugin, Class<?> mainClass, boolean clearConfig, boolean debugSave){
+        try {LoadRaw(javaPlugin, mainClass, clearConfig, debugSave);}
         catch (Exception e) {throw new RuntimeException(e);}
     }
 
@@ -33,11 +34,11 @@ public interface PulseConfig {
         ConfigSerializer.SaveConfig(this, configObject, debugSave);
     }
 
-    default void LoadRaw(Class<?> mainClass, boolean clearConfig, boolean debugSave) throws Exception {
+    default void LoadRaw(JavaPlugin javaPlugin, Class<?> mainClass, boolean clearConfig, boolean debugSave) throws Exception {
         var configPath = ConfigAPI.ReturnConfigPath(mainClass, getClass());
         var configObject = new ConfigObject(configPath, documentID());
         if(!configObject.saveFlag) SaveRaw(mainClass, clearConfig, debugSave, true);
-        else ConfigDeSerializer.LoadConfig(this, configObject);
+        else ConfigDeSerializer.LoadConfig(javaPlugin, this, configObject, debugSave);
     }
 
     default void DeleteConfig(Class<?> mainClass){

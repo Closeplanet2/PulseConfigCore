@@ -4,6 +4,7 @@ import com.pandapulsestudios.pulseconfig.Interfaces.IgnoreSave;
 import com.pandapulsestudios.pulseconfig.Interfaces.PulseClass;
 import com.pandapulsestudios.pulseconfig.PulseConfig;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -21,29 +22,42 @@ public class SaveableInventory implements PulseClass {
     public int maxStackSize = 1;
 
     public SaveableInventory(){}
+
     public SaveableInventory(String inventoryTitle, int inventorySize){
         inventory = Bukkit.createInventory(null, inventorySize, inventoryTitle);
-        contents = Arrays.stream(inventory.getContents()).toList();
         title = inventoryTitle;
         size = inventory.getSize();
         maxStackSize = inventory.getMaxStackSize();
     }
 
+    @Override
+    public void BeforeSave() {
+        contents = Arrays.stream(inventory.getContents()).toList();
+    }
+
+    @Override
+    public void AfterLoad() {
+        inventory = Bukkit.createInventory(null, size, title);
+        inventory.setContents(contents.toArray(new ItemStack[0]));
+    }
+
     public void AddItem(ItemStack... itemStacks){
         inventory.addItem(itemStacks);
-        contents = Arrays.stream(inventory.getContents()).toList();
+    }
+
+    public void SetItem(int pos, ItemStack itemStack){
+        inventory.setItem(pos, itemStack);
     }
 
     public void RemoveItem(ItemStack... itemStacks){
         inventory.removeItem(itemStacks);
-        contents = Arrays.stream(inventory.getContents()).toList();
     }
 
-    public Inventory ReturnInventory(){
-        if(inventory != null) return inventory;
-        inventory = Bukkit.createInventory(null, size, title);
-        inventory.setContents(contents.toArray(new ItemStack[0]));
-        inventory.setMaxStackSize(maxStackSize);
-        return inventory;
+    public void OpenInventory(Player player){
+        player.openInventory(inventory);
+    }
+
+    public ItemStack[] GetLiveContents(){
+        return inventory.getContents();
     }
 }

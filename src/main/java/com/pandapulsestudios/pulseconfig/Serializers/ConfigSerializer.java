@@ -63,7 +63,9 @@ public class ConfigSerializer {
         if(data instanceof PulseClass) return SaveConfig((PulseClass) data);
         else if(data instanceof HashMap) return SaveConfig((HashMap<Object, Object>) data);
         else if(data instanceof List)  return SaveConfig((List<Object>) data);
-        else if(data instanceof CustomVariable) return ((CustomVariable) data).SerializeData();
+        else if(data instanceof CustomVariable customVarClass){
+            return String.format("{%s}##..##{%s}", customVarClass.ClassType().getName(), customVarClass.SerializeData());
+        }
         else if(ConfigurationSerializable.class.isAssignableFrom(data.getClass())) return data;
         else if(data instanceof Date) return SerializerHelpers.SimpleDateFormat.format((Date) data);
         else{
