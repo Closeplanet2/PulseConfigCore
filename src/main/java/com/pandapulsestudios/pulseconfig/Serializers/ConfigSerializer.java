@@ -4,41 +4,46 @@ import com.pandapulsestudios.pulseconfig.Interfaces.PulseClass;
 import com.pandapulsestudios.pulseconfig.Interfaces.PulseConfig;
 import com.pandapulsestudios.pulseconfig.Interfaces.SaveName;
 import com.pandapulsestudios.pulseconfig.Objects.ConfigObject;
-import com.pandapulsestudios.pulseconfig.Objects.SaveableInventory;
+import com.pandapulsestudios.pulsecore.Chat.ChatAPI;
+import com.pandapulsestudios.pulsecore.Chat.MessageType;
 import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
 import com.pandapulsestudios.pulsecore.Data.Interface.CustomVariable;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.inventory.Inventory;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ConfigSerializer {
     public static void SaveConfig(PulseConfig pulseConfig, ConfigObject configObject, boolean debugSave) throws Exception {
+        //Callback to be used before the config is saved
         pulseConfig.BeforeSave();
+        var storedData = new LinkedHashMap<>();
 
-        var storedData = new HashMap<String, Object>();
-        var dataFields = SerializerHelpers.ReturnAllFields(pulseConfig, null, null);
-        for (var field : dataFields.keySet()){
-            var fieldName = field.isAnnotationPresent(SaveName.class) ? field.getAnnotation(SaveName.class).value() : field.getName();
+        //Return the fields from the class
+        var dataFields = SerializerHelpers.ReturnALlFields(pulseConfig);
+        for(var field : dataFields.keySet()){
+            //Check if the field has a different name to be saved with
+            var fieldName = SerializerHelpers.ReturnFieldName(field);
+            //Serialise the data and save it into the hashmap to be saved in the config
             storedData.put(fieldName, SaveConfig(dataFields.get(field)));
         }
 
-        pulseConfig.AfterSave();
+        //Save the data to the config
         configObject.Set(pulseConfig.documentID(), storedData, debugSave);
+        //Callback to be used after the config is saved
+        pulseConfig.AfterSave();
+
+        if(debugSave) ChatAPI.SendChat(ChatColor.RED + ConsoleSerializer.ConsoleOutput(pulseConfig), MessageType.ConsoleMessageNormal, false, null);
     }
 
-    private static Object SaveConfig(PulseClass pulseClass) throws Exception {
+    public static HashMap<String, Object> SaveConfig(PulseClass pulseClass) throws Exception {
         pulseClass.BeforeSave();
+        var storedData = new LinkedHashMap<String, Object>();
+        storedData.put("CLASS_TYPE", pulseClass.getClass().getName());
 
-        var storedData = new HashMap<String, Object>();
-        var dataFields = SerializerHelpers.ReturnAllFields(null, null, pulseClass);
-        for (var field : dataFields.keySet()){
-            var fieldName = field.isAnnotationPresent(SaveName.class) ? field.getAnnotation(SaveName.class).value() : field.getName();
+        var dataFields = SerializerHelpers.ReturnALlFields(pulseClass);
+        for(var field : dataFields.keySet()){
+            var fieldName = SerializerHelpers.ReturnFieldName(field);
             storedData.put(fieldName, SaveConfig(dataFields.get(field)));
         }
 
@@ -46,33 +51,33 @@ public class ConfigSerializer {
         return storedData;
     }
 
-    private static HashMap<Object, Object> SaveConfig(HashMap<Object, Object> currentData) throws Exception {
-        var returnData = new HashMap<>();
-        for (var key : currentData.keySet()) returnData.put(SaveConfig(key), SaveConfig(currentData.get(key)));
+    private static HashMap<Object, Object> SaveConfig(HashMap<Object, Object> storedData) throws Exception {
+        var returnData = new LinkedHashMap<>();
+        for(var sdKey : storedData.keySet()) returnData.put(SaveConfig(sdKey), SaveConfig(storedData.get(sdKey)));
         return returnData;
     }
 
-    private static List<Object> SaveConfig(List<Object> currentData) throws Exception {
+    private static List<Object> SaveConfig(List<Object> storedData) throws Exception {
         var returnData = new ArrayList<>();
-        for (var data : currentData) returnData.add(SaveConfig(data));
+        for(var sdValue : storedData) returnData.add(SaveConfig(sdValue));
         return returnData;
     }
 
-    private static Object SaveConfig(Object data) throws Exception {
-        if(data == null) return null;
-        if(data instanceof PulseClass) return SaveConfig((PulseClass) data);
-        else if(data instanceof HashMap) return SaveConfig((HashMap<Object, Object>) data);
-        else if(data instanceof List)  return SaveConfig((List<Object>) data);
-        else if(data instanceof CustomVariable customVarClass){
-            return String.format("{%s}##..##{%s}", customVarClass.ClassType().getName(), customVarClass.SerializeData());
-        }
-        else if(ConfigurationSerializable.class.isAssignableFrom(data.getClass())) return data;
-        else if(data instanceof Date) return SerializerHelpers.SimpleDateFormat.format((Date) data);
+    private static Object SaveConfig(Object storedData) throws Exception {
+        if(storedData == null) return null;
+        if(storedData instanceof PulseClass pulseClass) return SaveConfig(pulseClass);
+        else if(storedData instanceof HashMap hashMap) return SaveConfig(hashMap);
+        else if(storedData instanceof List list) return SaveConfig(list);
+        else if(storedData instanceof CustomVariable customVariable){
+            var data = new LinkedHashMap<String, Object>();
+            data.put("CLASS_TYPE", customVariable.getClass().getName());
+            data.put("DATA", customVariable.SerializeData());
+            return data;
+        }else if(ConfigurationSerializable.class.isAssignableFrom(storedData.getClass())) return storedData;
+        else if(storedData instanceof Date date) return SerializerHelpers.SimpleDateFormat.format(date);
         else{
-            var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(data.getClass());
-            return variableTest == null ? null : variableTest.SerializeData(data);
+            var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(storedData.getClass());
+            return variableTest == null ? null : variableTest.SerializeData(storedData);
         }
     }
-
-
 }

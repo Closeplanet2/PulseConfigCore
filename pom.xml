@@ -6,7 +6,7 @@
 
     <groupId>com.pandapulsestudios</groupId>
     <artifactId>pulseconfig</artifactId>
-    <version>1.1.12-a</version>
+    <version>1.2.1-a</version>
     <name>PulseConfigCore</name>
 
     <distributionManagement>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>com.pandapulsestudios</groupId>
             <artifactId>pulsecore</artifactId>
-            <version>1.1.14-a</version>
+            <version>1.1.23-a</version>
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>

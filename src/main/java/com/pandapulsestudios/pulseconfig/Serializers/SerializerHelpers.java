@@ -2,44 +2,86 @@ package com.pandapulsestudios.pulseconfig.Serializers;
 
 import com.pandapulsestudios.pulseconfig.Interfaces.*;
 import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
-import com.pandapulsestudios.pulsecore.Data.Interface.CustomVariable;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SerializerHelpers {
-    public static final java.text.SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("yyyy-MMM-dd-HH-mm-ss", Locale.ENGLISH);
-    public static final String MongoID = "MongoID";
 
-    public static LinkedHashMap<Field, Object> ReturnAllFields(PulseConfig pandaConfig, PulseMongo pandaMongo, PulseClass pandaClass) throws Exception {
+    public static final java.text.SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("yyyy-MMM-dd-HH-mm-ss", Locale.ENGLISH);
+
+    public static String ReturnFieldName(Field field){
+        var fieldName = field.isAnnotationPresent(SaveName.class) ? field.getAnnotation(SaveName.class).value() : field.getName();
+        return field.isAnnotationPresent(ConfigComment.class) ? String.format("#%s\n%s", field.getAnnotation(ConfigComment.class).value(), fieldName) : fieldName;
+    }
+
+    public static LinkedHashMap<Field, Object> ReturnALlFields(PulseConfig pulseConfig) throws Exception{
         var data = new LinkedHashMap<Field, Object>();
-        Object clazz = pandaConfig != null ? pandaConfig : pandaMongo != null ? pandaMongo : pandaClass;
-        for(var field : pandaConfig != null ? pandaConfig.getClass().getDeclaredFields() : pandaMongo != null ? pandaMongo.getClass().getDeclaredFields() : pandaClass.getClass().getDeclaredFields()){
-            if (field.isAnnotationPresent(IgnoreSave.class)) continue;
-            var variable = field.get(clazz);
-            if(variable == null && !field.isAnnotationPresent(DontDefault.class)){
-                var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(field.getType());
-                if(field.getType() == Date.class) variable = new Date();
-                else if(variableTest != null) variable = variableTest.ReturnDefaultValue();
+
+        //Loop through every variable in the class implementing pulse config
+        for(var field : pulseConfig.getClass().getDeclaredFields()){
+            //If the field is marked as ignore save, pass over it
+            if(field.isAnnotationPresent(IgnoreSave.class)) continue;
+            //If the field isn't marked as public, pass over it
+            if(!Modifier.isPublic(field.getModifiers())) continue;
+            //If the field is marked as static, pass over it
+            if(Modifier.isStatic(field.getModifiers())) continue;
+
+            //return the variable from the field
+            var storedData = field.get(pulseConfig);
+            //if the stored data is null and we haven't marked the field as dont default, try and
+            //give the field a value
+            if(storedData == null && !field.isAnnotationPresent(DontDefault.class)){
+                if(field.getType() == List.class) storedData = new ArrayList<Object>();
+                else if(field.getType() == HashMap.class) storedData = new HashMap<Object, Object>();
+                else if(field.getType() == Date.class) storedData = new Date();
+                else{
+                    var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(field.getType());
+                    if(variableTest != null) storedData = variableTest.ReturnDefaultValue();
+                }
             }
-            if(variable == null) continue;
-            data.put(field, variable);
+
+            //If the stored data is still null continue as we cant serialise a empty vairable
+            if(storedData != null) data.put(field, storedData);
         }
+
         return data;
     }
 
-    public static ArrayList<Object> StoreHashMapInListA(HashMap<String, Object> data){
-        var arrayList = new ArrayList<Object>();
-        arrayList.add(data);
-        return arrayList;
-    }
+    public static LinkedHashMap<Field, Object> ReturnALlFields(PulseClass pulseConfig) throws Exception{
+        var data = new LinkedHashMap<Field, Object>();
 
-    public static ArrayList<Object> StoreHashMapInListB(HashMap<Object, Object> data){
-        var arrayList = new ArrayList<Object>();
-        arrayList.add(data);
-        return arrayList;
+        //Loop through every variable in the class implementing pulse config
+        for(var field : pulseConfig.getClass().getDeclaredFields()){
+            //If the field is marked as ignore save, pass over it
+            if(field.isAnnotationPresent(IgnoreSave.class)) continue;
+            //If the field isn't marked as public, pass over it
+            if(!Modifier.isPublic(field.getModifiers())) continue;
+            //If the field is marked as static, pass over it
+            if(Modifier.isStatic(field.getModifiers())) continue;
+
+            //return the variable from the field
+            var storedData = field.get(pulseConfig);
+            //if the stored data is null and we haven't marked the field as dont default, try and
+            //give the field a value
+            if(storedData == null && !field.isAnnotationPresent(DontDefault.class)){
+                if(field.getType() == List.class) storedData = new ArrayList<Object>();
+                else if(field.getType() == HashMap.class) storedData = new HashMap<Object, Object>();
+                else if(field.getType() == Date.class) storedData = new Date();
+                else{
+                    var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(field.getType());
+                    if(variableTest != null) storedData = variableTest.ReturnDefaultValue();
+                }
+            }
+
+            //If the stored data is still null continue as we cant serialise a empty vairable
+            if(storedData != null) data.put(field, storedData);
+        }
+
+        return data;
     }
 }
