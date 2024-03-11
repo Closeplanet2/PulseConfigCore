@@ -1,11 +1,12 @@
 package com.pandapulsestudios.pulseconfig.APIS;
 
 import com.pandapulsestudios.pulseconfig.Interfaces.ConfigPath;
-import com.pandapulsestudios.pulseconfig.Interfaces.PulseConfig;
-import com.pandapulsestudios.pulseconfig.Objects.ConfigObject;
-import com.pandapulsestudios.pulseconfig.Serializers.ConfigDeSerializer;
-import com.pandapulsestudios.pulseconfig.Serializers.ConfigSerializer;
-import com.pandapulsestudios.pulseconfig.Serializers.ConsoleSerializer;
+import com.pandapulsestudios.pulseconfig.Interfaces.Config.PulseConfig;
+import com.pandapulsestudios.pulseconfig.Objects.Config.ConfigObject;
+import com.pandapulsestudios.pulseconfig.Serializers.Config.ConfigDeSerializer;
+import com.pandapulsestudios.pulseconfig.Serializers.Config.ConfigSerializer;
+import com.pandapulsestudios.pulseconfig.Serializers.Config.ConsoleSerializer;
+import com.pandapulsestudios.pulsecore.FileSystem.DirAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -23,15 +24,27 @@ public class ConfigAPI {
         return String.format("plugins/%s", pulseConfig.mainClass().getClass().getSimpleName());
     }
 
-    public static void Save(PulseConfig pulseConfig, boolean debugSave) throws Exception {
+    public static void Save(PulseConfig pulseConfig, boolean debugSave) {
+        try { SaveRaw(pulseConfig, debugSave); }
+        catch (Exception e) { throw new RuntimeException(e); }
+    }
+
+    public static void SaveRaw(PulseConfig pulseConfig, boolean debugSave) throws Exception {
         var configPath = ReturnConfigPath(pulseConfig);
+        DirAPI.Create(configPath);
         var configObject = new ConfigObject(configPath, pulseConfig.documentID());
         if(!configObject.saveFlag) pulseConfig.FirstLoad();
         ConfigSerializer.SaveConfig(pulseConfig, configObject, debugSave);
     }
 
-    public static void Load(PulseConfig pulseConfig, boolean debugLoad) throws Exception {
+    public static void Load(PulseConfig pulseConfig, boolean debugLoad) {
+        try { LoadRaw(pulseConfig, debugLoad); }
+        catch (Exception e) { throw new RuntimeException(e); }
+    }
+
+    public static void LoadRaw(PulseConfig pulseConfig, boolean debugLoad) throws Exception {
         var configPath = ReturnConfigPath(pulseConfig);
+        DirAPI.Create(configPath);
         var configObject = new ConfigObject(configPath, pulseConfig.documentID());
         if(!configObject.saveFlag){
             pulseConfig.FirstLoad();
@@ -39,6 +52,12 @@ public class ConfigAPI {
         }else{
             ConfigDeSerializer.LoadConfig(pulseConfig, configObject, debugLoad);
         }
+    }
+
+    public static void Delete(PulseConfig pulseConfig){
+        var configPath = ReturnConfigPath(pulseConfig);
+        var configObject = new ConfigObject(configPath, pulseConfig.documentID());
+        configObject.DeleteConfig();
     }
 
     public static String ToString(PulseConfig pulseConfig) throws Exception {
