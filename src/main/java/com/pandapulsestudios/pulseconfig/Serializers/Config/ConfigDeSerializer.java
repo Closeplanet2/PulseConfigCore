@@ -30,7 +30,7 @@ public class ConfigDeSerializer {
         }
 
         pulseConfig.AfterLoad();
-        if(debugLoad) ChatAPI.SendChat(ChatColor.RED + ConsoleSerializer.ConsoleOutput(pulseConfig), MessageType.ConsoleMessageNormal, false, null);
+        if(debugLoad) ChatAPI.chatBuilder().SendMessage(ChatColor.RED + ConsoleSerializer.ConsoleOutput(pulseConfig));
     }
 
     public static Object LoadConfigPulseClass(PulseClass pulseClass, HashMap<Object, Object> configData) throws Exception {
@@ -72,7 +72,7 @@ public class ConfigDeSerializer {
             if(!configHashMap.containsKey("CLASS_TYPE") || !configHashMap.containsKey("DATA")) return new HashMap<String, Object>();
             var serialisedClassName = (String) configHashMap.get("CLASS_TYPE");
             var serialisedData = (HashMap<String, Object>) configHashMap.get("DATA");
-            return ((CustomVariable) JavaAPI.ReturnClassFromPlugin(serialisedClassName).getDeclaredConstructor().newInstance()).DeSerializeData(serialisedData);
+            return ((CustomVariable) Class.forName(serialisedClassName).getDeclaredConstructor().newInstance()).DeSerializeData(serialisedData);
         }else if(ConfigurationSerializable.class.isAssignableFrom(classData.getClass())){
             return configData;
         }else if(classData instanceof Date){

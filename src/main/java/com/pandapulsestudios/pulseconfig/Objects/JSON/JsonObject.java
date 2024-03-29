@@ -17,8 +17,8 @@ public class JsonObject {
     private final String documentID;
     private final String dirPath;
 
-    public JsonObject(String documentID, String dirPath) throws Exception {
-        saveFlag = FileAPI.Exist(dirPath, String.format("%s.json", documentID));
+    public JsonObject(String documentID, String dirPath) {
+        saveFlag = new File(String.format("%s/%s.json", dirPath, documentID)).exists();
         this.documentID = documentID;
         this.dirPath = dirPath;
     }

@@ -27,7 +27,7 @@ public class SaveableArrayList<E> {
                 var document = (Document) configObject;
                 if(document.containsKey("CLASS_TYPE")){
                     try{
-                        var clazz = JavaAPI.ReturnClassFromPlugin((String) document.get("CLASS_TYPE"));
+                        var clazz = Class.forName((String) document.get("CLASS_TYPE"));
                         var pulseClass = ((PulseClass) clazz.getDeclaredConstructor().newInstance());
                         arrayList.add((E) MongoDeSerializer.LoadConfigPulseClass(pulseClass, document));
                     }catch (Exception ignored){}
@@ -36,7 +36,7 @@ public class SaveableArrayList<E> {
                 var hashMap = (HashMap<Object, Object>) configObject;
                 if(hashMap.containsKey("CLASS_TYPE")){
                     try{
-                        var clazz = JavaAPI.ReturnClassFromPlugin((String) hashMap.get("CLASS_TYPE"));
+                        var clazz = Class.forName((String) hashMap.get("CLASS_TYPE"));
                         var pulseClass = ((PulseClass) clazz.getDeclaredConstructor().newInstance());
                         arrayList.add((E) ConfigDeSerializer.LoadConfigPulseClass(pulseClass, hashMap));
                     }catch (Exception ignored){}

@@ -13,13 +13,13 @@ public class BinaryFileObject {
     private ObjectInputStream objectInputStream;
 
     public BinaryFileObject(String dirPath, String fileName, String extension, boolean outputFlag) throws Exception {
-        saveFlag = FileAPI.Exist(dirPath, fileName);
+        saveFlag = new File(String.format("%s/%s.%s", dirPath, fileName, extension)).exists();
         this.outputFlag = outputFlag;
         if(outputFlag){
             fileOutputStream = new FileOutputStream(String.format("%s/%s.%s", dirPath, fileName, extension));
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
         }else{
-            fileInputStream = new FileInputStream(String.format("%s/%s", dirPath, fileName));
+            fileInputStream = new FileInputStream(String.format("%s/%s.%s", dirPath, fileName, extension));
             objectInputStream = new ObjectInputStream(fileInputStream);
         }
     }

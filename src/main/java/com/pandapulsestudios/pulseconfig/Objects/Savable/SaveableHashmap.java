@@ -44,7 +44,7 @@ public class SaveableHashmap<E, F> {
                 var document = (Document) dataValue;
                 if(document.containsKey("CLASS_TYPE")){
                     try{
-                        var clazz = JavaAPI.ReturnClassFromPlugin((String) document.get("CLASS_TYPE"));
+                        var clazz =  Class.forName((String) document.get("CLASS_TYPE"));
                         var pulseClass = ((PulseClass) clazz.getDeclaredConstructor().newInstance());
                         return MongoDeSerializer.LoadConfigPulseClass(pulseClass, document);
                     }catch (Exception ignored){}
@@ -53,7 +53,7 @@ public class SaveableHashmap<E, F> {
                 var hashMap = (HashMap<Object, Object>) dataValue;
                 if(hashMap.containsKey("CLASS_TYPE")){
                     try{
-                        var clazz = JavaAPI.ReturnClassFromPlugin((String) hashMap.get("CLASS_TYPE"));
+                        var clazz =  Class.forName((String) hashMap.get("CLASS_TYPE"));
                         var pulseClass = ((PulseClass) clazz.getDeclaredConstructor().newInstance());
                         return ConfigDeSerializer.LoadConfigPulseClass(pulseClass, hashMap);
                     }catch (Exception ignored){}

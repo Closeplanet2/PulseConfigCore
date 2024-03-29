@@ -2,6 +2,7 @@ package com.pandapulsestudios.pulseconfig.Objects.Mogno;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.pandapulsestudios.pulseconfig.Interfaces.Mongo.PulseMongo;
@@ -40,6 +41,21 @@ public class MongoConnection {
     public Document Find(String collectionName, String value){
         var mongoCollection = ReturnCollection(collectionName);
         return mongoCollection == null ? new Document("MongoID", value) : mongoCollection.find(new Document("MongoID", value)).first();
+    }
+
+    public Document Find(String collectionName, String key, String value){
+        var mongoCollection = ReturnCollection(collectionName);
+        return mongoCollection == null ? null : mongoCollection.find(new Document(key, value)).first();
+    }
+
+    public FindIterable<Document> FindAll(String collectionName, String value){
+        var mongoCollection = ReturnCollection(collectionName);
+        return mongoCollection == null ? null : mongoCollection.find(new Document("MongoID", value));
+    }
+
+    public FindIterable<Document> FindAll(String collectionName, String key, String value){
+        var mongoCollection = ReturnCollection(collectionName);
+        return mongoCollection == null ? null : mongoCollection.find(new Document(key, value));
     }
 
     public void InsertOrReplace(String collectionName, String key, String value, Document a){

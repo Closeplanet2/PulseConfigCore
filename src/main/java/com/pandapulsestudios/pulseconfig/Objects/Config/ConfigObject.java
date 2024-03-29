@@ -16,14 +16,14 @@ public class ConfigObject {
     private File file;
 
     public ConfigObject(String dirPath, String fileName){
-        saveFlag = FileAPI.Exist(dirPath, fileName, ".yml");
-        file = FileAPI.Create(dirPath, fileName, ".yml");
+        saveFlag = new File(String.format("%s/%s.yml", dirPath, fileName)).exists();
+        file = new File(String.format("%s/%s.yml", dirPath, fileName));
         fileConfiguration = YamlConfiguration.loadConfiguration(file);
     }
 
     public void Set(String path, Object value, boolean debugSave){
         fileConfiguration.set(path, value);
-        if(debugSave) ChatAPI.SendChat("Saving data @ " + path, MessageType.ConsoleMessageNormal, true, null);
+        if(debugSave) ChatAPI.chatBuilder().SendMessage("Saving data @ " + path);
         SaveConfig();
     }
 

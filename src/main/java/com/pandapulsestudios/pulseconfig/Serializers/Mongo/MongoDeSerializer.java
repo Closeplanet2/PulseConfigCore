@@ -13,6 +13,7 @@ import com.pandapulsestudios.pulseconfig.Serializers.JSON.JSONDeSerializer;
 import com.pandapulsestudios.pulseconfig.Serializers.SerializerHelpers;
 import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
 import com.pandapulsestudios.pulsecore.Data.Interface.CustomVariable;
+import com.pandapulsestudios.pulsecore.Java.ClassAPI;
 import com.pandapulsestudios.pulsecore.Java.JavaAPI;
 import org.bson.Document;
 import org.bukkit.Bukkit;
@@ -76,7 +77,7 @@ public class MongoDeSerializer {
             if(!configHashMap.containsKey("CLASS_TYPE") || !configHashMap.containsKey("DATA")) return new HashMap<String, Object>();
             var serialisedClassName = (String) configHashMap.get("CLASS_TYPE");
             var serialisedData = (HashMap<String, Object>) configHashMap.get("DATA");
-            return ((CustomVariable) JavaAPI.ReturnClassFromPlugin(serialisedClassName).getDeclaredConstructor().newInstance()).DeSerializeData(serialisedData);
+            return ((CustomVariable) Class.forName(serialisedClassName).getDeclaredConstructor().newInstance()).DeSerializeData(serialisedData);
         }else if(ConfigurationSerializable.class.isAssignableFrom(classData.getClass())){
             return configData;
         }else if(classData instanceof Date){

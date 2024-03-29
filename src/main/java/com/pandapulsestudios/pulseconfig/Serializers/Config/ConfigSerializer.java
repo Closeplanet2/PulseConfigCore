@@ -37,7 +37,7 @@ public class ConfigSerializer {
         //Callback to be used after the config is saved
         pulseConfig.AfterSave();
 
-        if(debugSave) ChatAPI.SendChat(ChatColor.RED + ConsoleSerializer.ConsoleOutput(pulseConfig), MessageType.ConsoleMessageNormal, false, null);
+        if(debugSave) ChatAPI.chatBuilder().SendMessage(ChatColor.RED + ConsoleSerializer.ConsoleOutput(pulseConfig));
     }
 
     public static HashMap<String, Object> SaveConfig(PulseClass pulseClass) throws Exception {

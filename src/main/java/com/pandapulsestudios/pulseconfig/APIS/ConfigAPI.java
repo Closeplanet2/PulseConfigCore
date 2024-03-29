@@ -10,6 +10,8 @@ import com.pandapulsestudios.pulsecore.FileSystem.DirAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
+import java.io.File;
+
 public class ConfigAPI {
     public static String ReturnConfigPath(PulseConfig pulseConfig){
         if(pulseConfig.getClass().isAnnotationPresent(ConfigPath.class)){
@@ -31,7 +33,7 @@ public class ConfigAPI {
 
     public static void SaveRaw(PulseConfig pulseConfig, boolean debugSave) throws Exception {
         var configPath = ReturnConfigPath(pulseConfig);
-        DirAPI.Create(configPath);
+        DirAPI.CreateDirectory(new File(configPath));
         var configObject = new ConfigObject(configPath, pulseConfig.documentID());
         if(!configObject.saveFlag) pulseConfig.FirstLoad();
         ConfigSerializer.SaveConfig(pulseConfig, configObject, debugSave);
@@ -44,7 +46,7 @@ public class ConfigAPI {
 
     public static void LoadRaw(PulseConfig pulseConfig, boolean debugLoad) throws Exception {
         var configPath = ReturnConfigPath(pulseConfig);
-        DirAPI.Create(configPath);
+        DirAPI.CreateDirectory(new File(configPath));
         var configObject = new ConfigObject(configPath, pulseConfig.documentID());
         if(!configObject.saveFlag){
             pulseConfig.FirstLoad();

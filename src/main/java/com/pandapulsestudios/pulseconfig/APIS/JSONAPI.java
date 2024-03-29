@@ -9,6 +9,10 @@ import com.pandapulsestudios.pulseconfig.Objects.JSON.JsonObject;
 import com.pandapulsestudios.pulseconfig.Serializers.JSON.JSONDeSerializer;
 import com.pandapulsestudios.pulseconfig.Serializers.JSON.JSONSerializer;
 import com.pandapulsestudios.pulsecore.FileSystem.DirAPI;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+
+import java.io.File;
 
 public class JSONAPI {
     public static String ReturnConfigPath(PulseJson pulseJson){
@@ -31,7 +35,7 @@ public class JSONAPI {
 
     public static void SaveRaw(PulseJson pulseJson, boolean debugSave) throws Exception {
         var configPath = ReturnConfigPath(pulseJson);
-        DirAPI.Create(configPath);
+        DirAPI.CreateDirectory(new File(configPath));
         var jsonObject = new JsonObject(pulseJson.documentID(), configPath);
         if(!jsonObject.saveFlag) pulseJson.FirstLoad();
         JSONSerializer.SaveJSON(pulseJson, jsonObject, debugSave);
@@ -44,12 +48,13 @@ public class JSONAPI {
 
     public static void LoadRaw(PulseJson pulseJson, boolean debugSave) throws Exception {
         var configPath = ReturnConfigPath(pulseJson);
-        DirAPI.Create(configPath);
+        DirAPI.CreateDirectory(new File(configPath));
         var jsonObject = new JsonObject(pulseJson.documentID(), configPath);
         if(!jsonObject.saveFlag){
             pulseJson.FirstLoad();
             SaveRaw(pulseJson, debugSave);
         }else{
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "LOADING....");
             JSONDeSerializer.LoadJSON(pulseJson, jsonObject, debugSave);
         }
     }
