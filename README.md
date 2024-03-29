@@ -9,15 +9,15 @@ A Bukkit/Spigot API to allow for the ease and accesibility of spigot creation!
 
 ```
 <repository>
-      <id>pulsecommands</id>
-      <url>https://maven.pkg.github.com/closeplanet2/PulseCommands</url>
+      <id>pulseconfig</id>
+      <url>https://maven.pkg.github.com/closeplanet2/PulseConfig</url>
 </repository>
 ```
 
 ```
 <dependency>
       <groupId>com.pandapulsestudios</groupId>
-      <artifactId>pulsecommands</artifactId>
-      <version>1.1.4-a</version>
+      <artifactId>pulseconfig</artifactId>
+      <version>1.3.8-a</version>
 </dependency>
 ```
