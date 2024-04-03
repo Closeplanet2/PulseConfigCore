@@ -58,7 +58,6 @@ public class ConfigSerializer {
     private static HashMap<Object, Object> SaveConfig(SaveableHashmap saveableHashmap) throws Exception {
         var returnData = new LinkedHashMap<>();
         for(var sdKey : saveableHashmap.hashMap.keySet()) returnData.put(SaveConfigSingle(sdKey), SaveConfigSingle(saveableHashmap.hashMap.get(sdKey)));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + returnData.toString());
         return returnData;
     }
 
