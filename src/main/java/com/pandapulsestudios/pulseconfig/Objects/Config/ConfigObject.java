@@ -1,5 +1,7 @@
 package com.pandapulsestudios.pulseconfig.Objects.Config;
 
+import com.pandapulsestudios.pulseconfig.Interfaces.ConfigComment;
+import com.pandapulsestudios.pulseconfig.Interfaces.ConfigHeader;
 import com.pandapulsestudios.pulsecore.Chat.ChatAPI;
 import com.pandapulsestudios.pulsecore.Chat.MessageType;
 import com.pandapulsestudios.pulsecore.FileSystem.FileAPI;
@@ -8,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class ConfigObject {
@@ -40,6 +43,11 @@ public class ConfigObject {
             else if(fileConfiguration.isConfigurationSection(fullPath) && deepDive) data.put(key, HashMap(fullPath, deepDive));
         }
         return data;
+    }
+
+    public void SetHeader(ConfigHeader configHeader){
+        fileConfiguration.options().setHeader(Arrays.asList(configHeader.value()));
+        SaveConfig();
     }
 
     public void SaveConfig(){

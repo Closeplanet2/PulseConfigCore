@@ -1,5 +1,6 @@
 package com.pandapulsestudios.pulseconfig.Serializers.Config;
 
+import com.pandapulsestudios.pulseconfig.Interfaces.ConfigHeader;
 import com.pandapulsestudios.pulseconfig.Interfaces.PulseClass;
 import com.pandapulsestudios.pulseconfig.Interfaces.Config.PulseConfig;
 import com.pandapulsestudios.pulseconfig.Objects.Config.ConfigObject;
@@ -22,6 +23,7 @@ public class ConfigSerializer {
         //Callback to be used before the config is saved
         pulseConfig.BeforeSave();
         var storedData = new LinkedHashMap<>();
+        if(pulseConfig.getClass().isAnnotationPresent(ConfigHeader.class)) configObject.SetHeader(pulseConfig.getClass().getAnnotation(ConfigHeader.class));
 
         //Return the fields from the class
         var dataFields = SerializerHelpers.ReturnALlFields(pulseConfig);
