@@ -3,6 +3,7 @@ package com.pandapulsestudios.pulseconfig.Objects.Savable;
 import com.pandapulsestudios.pulseconfig.Interfaces.IgnoreSave;
 import com.pandapulsestudios.pulseconfig.Interfaces.PulseClass;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -42,20 +43,17 @@ public class SaveableInventory implements PulseClass {
     public void AddItem(ItemStack... itemStacks){
         inventory.addItem(itemStacks);
     }
-
     public void SetItem(int pos, ItemStack itemStack){
         inventory.setItem(pos, itemStack);
     }
-
     public void RemoveItem(ItemStack... itemStacks){
         inventory.removeItem(itemStacks);
     }
-
     public void OpenInventory(Player player){
         player.openInventory(inventory);
     }
-
     public ItemStack[] GetLiveContents(){
         return inventory.getContents();
     }
+    public List<HumanEntity> ReturnViewers(){ return inventory.getViewers();}
 }
