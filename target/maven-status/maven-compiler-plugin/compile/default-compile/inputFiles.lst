@@ -12,7 +12,6 @@ D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\panda
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Objects\JSON\JsonObject.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Serializers\Config\ConfigDeSerializer.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Objects\BinaryFile\BinaryFileObject.java
-D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Objects\Savable\SaveableInventory.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Interfaces\DontDefault.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\APIS\BinaryFileAPI.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Interfaces\ConfigHeader.java
@@ -29,6 +28,7 @@ D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\panda
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Interfaces\SaveName.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Interfaces\Mongo\PulseMongo.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Objects\Savable\SaveableArrayList.java
+D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Objects\Savable\SaveAbleInventoryConfig.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Serializers\Mongo\MongoSerializer.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Serializers\BinaryFile\BinarySerializer.java
 D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\Serializers\BinaryFile\BinaryDeSerializer.java

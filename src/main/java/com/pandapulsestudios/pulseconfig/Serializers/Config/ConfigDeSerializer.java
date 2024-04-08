@@ -12,6 +12,7 @@ import com.pandapulsestudios.pulsecore.Chat.MessageType;
 import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
 import com.pandapulsestudios.pulsecore.Data.Interface.CustomVariable;
 import com.pandapulsestudios.pulsecore.Java.JavaAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
@@ -20,6 +21,8 @@ import java.util.*;
 public class ConfigDeSerializer {
     public static void LoadConfig(PulseConfig pulseConfig, ConfigObject configObject, boolean debugLoad) throws Exception {
         pulseConfig.BeforeLoad();
+
+        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "-----" + pulseConfig.getClass().getSimpleName());
 
         var storedData = configObject.HashMap(pulseConfig.documentID(), true);
         var dataFields = SerializerHelpers.ReturnALlFields(pulseConfig);
@@ -35,17 +38,23 @@ public class ConfigDeSerializer {
 
     public static Object LoadConfigPulseClass(PulseClass pulseClass, HashMap<Object, Object> configData) throws Exception {
         pulseClass.BeforeLoad();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "MEANT TO BE PULSE CLASS -> " + pulseClass.getClass().getSimpleName());
+
         var dataFields = SerializerHelpers.ReturnALlFields(pulseClass);
         for (var field : dataFields.keySet()){
             var fieldName = field.isAnnotationPresent(SaveName.class) ? field.getAnnotation(SaveName.class).value() : field.getName();
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + fieldName + ":" + configData.containsKey(fieldName));
             if(!configData.containsKey(fieldName)) field.set(pulseClass, null);
             else field.set(pulseClass, LoadConfig(dataFields.get(field), configData.get(fieldName)));
         }
+
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "MEANT TO BE PULSE CLASS -> " + pulseClass.getClass().getSimpleName());
         pulseClass.AfterLoad();
         return pulseClass;
     }
 
     public static SaveableHashmap<Object, Object> LoadConfigHashMap(SaveableHashmap<Object, Object> saveableHashmap, HashMap<Object, Object> configData) throws Exception {
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + configData.toString());
         for(var dataKey : configData.keySet()){
             var dataValue = configData.get(dataKey);
             saveableHashmap.AddData(dataKey, dataValue);
@@ -54,7 +63,11 @@ public class ConfigDeSerializer {
     }
 
     public static SaveableArrayList<Object> LoadConfigArray(SaveableArrayList<Object> saveableArrayList, List<Object> configData) throws Exception {
-        for(var data : configData) saveableArrayList.AddData(data);
+        for(var data : configData){
+            Bukkit.getConsoleSender().sendMessage(data.toString());
+            saveableArrayList.AddData(data);
+        }
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "ARRAY TYPE RETURN: ->" + saveableArrayList.getClass().getSimpleName());
         return saveableArrayList;
     }
 

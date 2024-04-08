@@ -24,7 +24,9 @@ public class SaveableArrayList<E> {
     }
 
     public void AddData(Object configObject) throws Exception {
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Serialiser.....");
         if(PulseClass.class.isAssignableFrom(classType)){
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Serialiser class.....");
             if(saveableType == SaveableType.MONGO){
                 var document = (Document) configObject;
                 if(document.containsKey("CLASS_TYPE")){
@@ -45,6 +47,7 @@ public class SaveableArrayList<E> {
                 }
             }
         }else{
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "SErialiser non class.....");
             var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classType);
             if(variableTest == null){
                 if(saveableType == SaveableType.MONGO) arrayList.add((E) MongoDeSerializer.LoadConfig((E) configObject, configObject));

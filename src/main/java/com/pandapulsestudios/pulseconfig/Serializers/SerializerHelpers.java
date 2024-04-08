@@ -7,6 +7,8 @@ import com.pandapulsestudios.pulseconfig.Interfaces.Mongo.PulseMongo;
 import com.pandapulsestudios.pulseconfig.Interfaces.PulseClass;
 import com.pandapulsestudios.pulseconfig.Interfaces.Config.PulseConfig;
 import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -66,7 +68,6 @@ public class SerializerHelpers {
             if(!Modifier.isPublic(field.getModifiers())) continue;
             //If the field is marked as static, pass over it
             if(Modifier.isStatic(field.getModifiers())) continue;
-
             //return the variable from the field
             var storedData = field.get(pulseConfig);
             //if the stored data is null and we haven't marked the field as dont default, try and

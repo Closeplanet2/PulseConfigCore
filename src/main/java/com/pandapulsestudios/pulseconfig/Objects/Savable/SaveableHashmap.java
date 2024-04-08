@@ -15,17 +15,18 @@ import java.util.HashMap;
 
 public class SaveableHashmap<E, F> {
     public HashMap<E, F> hashMap = new HashMap<>();
+    private final SaveableType saveableType;
     private final Class<?> keyType;
     private final Class<?> dataType;
-    private final SaveableType saveableType;
 
     public SaveableHashmap(SaveableType saveableType, Class<?> keyType, Class<?> dataType){
+        this.saveableType = saveableType;
         this.keyType = keyType;
         this.dataType = dataType;
-        this.saveableType = saveableType;
     }
 
     public void AddData(Object dataKey, Object dataValue) throws Exception {
+        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[" + dataKey + "]");
         var sDataKey = (E) SerialiseDataKey(dataKey);
         var sDataValue = (F) SerialiseDataValue(dataValue);
         hashMap.put(sDataKey, sDataValue);

@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="pulseconfig:jar">
-    <output-path>$PROJECT_DIR$/../../_Servers/Pulse Core Rebuild/plugins</output-path>
+    <output-path>$PROJECT_DIR$/../../_Servers/Local Bungie Network/TestServer/plugins</output-path>
     <root id="archive" name="pulseconfig.jar">
       <element id="module-output" name="pulseconfig" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar" path-in-jar="/" />
