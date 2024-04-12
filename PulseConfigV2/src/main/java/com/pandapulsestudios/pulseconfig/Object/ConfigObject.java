@@ -41,7 +41,6 @@ public class ConfigObject {
 
     public void SetData(String path, Object value, boolean debugSave){
         fileConfiguration.set(path, value);
-        if(debugSave) Bukkit.getConsoleSender().sendMessage("Saving data @ " + path);
         SaveConfig();
     }
 
