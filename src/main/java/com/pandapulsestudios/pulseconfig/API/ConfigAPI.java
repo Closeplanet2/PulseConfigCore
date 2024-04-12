@@ -1,6 +1,6 @@
 package com.pandapulsestudios.pulseconfig.API;
 
-import com.pandapulsestudios.pulseconfig.Interface.ConfigPath;
+import com.pandapulsestudios.pulseconfig.Interface.StoragePath;
 import com.pandapulsestudios.pulseconfig.Interface.PulseConfig;
 import com.pandapulsestudios.pulseconfig.Serializer.SerializerHelpers;
 import com.pandapulsestudios.pulsecore.FileSystem.DirAPI;
@@ -24,7 +24,7 @@ public class ConfigAPI {
     }
 
     public static String ReturnConfigPath(PulseConfig pulseConfig){
-        if(pulseConfig.getClass().isAnnotationPresent(ConfigPath.class)) return String.format("plugins/%s", pulseConfig.getClass().getAnnotation(ConfigPath.class).value());
+        if(pulseConfig.getClass().isAnnotationPresent(StoragePath.class)) return String.format("plugins/%s", pulseConfig.getClass().getAnnotation(StoragePath.class).value());
         if(pulseConfig.useSubFolder()) return String.format("plugins/%s/%s", pulseConfig.mainClass().getClass().getSimpleName(), pulseConfig.getClass().getSimpleName());
         return String.format("plugins/%s", pulseConfig.mainClass().getClass().getSimpleName());
     }

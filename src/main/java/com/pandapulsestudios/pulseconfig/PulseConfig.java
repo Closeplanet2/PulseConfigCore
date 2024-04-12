@@ -16,6 +16,5 @@ public final class PulseConfig extends JavaPlugin {
     @Override
     public void onEnable() {
         PulseConfig = this;
-        StorageAPI.RegisterStatic(this, false);
     }
 }

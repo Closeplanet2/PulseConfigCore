@@ -1,9 +1,6 @@
 package com.pandapulsestudios.pulseconfig;
 
-import com.pandapulsestudios.pulseconfig.Interface.PulseMongo;
-import com.pandapulsestudios.pulseconfig.Interface.StorageComment;
-import com.pandapulsestudios.pulseconfig.Interface.ConfigFooter;
-import com.pandapulsestudios.pulseconfig.Interface.ConfigHeader;
+import com.pandapulsestudios.pulseconfig.Interface.*;
 import com.pandapulsestudios.pulseconfig.Interface.PulseConfig;
 import com.pandapulsestudios.pulseconfig.Objects.SaveAbleInventory;
 import com.pandapulsestudios.pulsecore.Java.PulseAutoRegister;
@@ -15,7 +12,7 @@ import java.util.UUID;
 @PulseAutoRegister
 @ConfigHeader("This is the header for the config")
 @ConfigFooter("This is the footer for the config")
-public class TestConfig implements PulseConfig, PulseMongo {
+public class TestConfig implements PulseConfig, PulseMongo, PulseBinary, PulseJSON {
     @StorageComment("This is a comment for a")
     public boolean a;
     @StorageComment("This is a comment for b")
@@ -40,6 +37,9 @@ public class TestConfig implements PulseConfig, PulseMongo {
     }
 
     @Override
+    public String fileExtension() { return "yty"; }
+
+    @Override
     public JavaPlugin mainClass() {
         return PulseConfig.super.mainClass();
     }
@@ -48,4 +48,34 @@ public class TestConfig implements PulseConfig, PulseMongo {
     public String documentID() {
         return PulseConfig.super.documentID();
     }
+
+    @Override
+    public boolean useSubFolder() { return PulseConfig.super.useSubFolder(); }
+
+    @Override
+    public void FirstLoadBinary() { PulseBinary.super.FirstLoadBinary(); }
+
+    @Override
+    public void BeforeLoadBinary() { PulseBinary.super.BeforeLoadBinary(); }
+
+    @Override
+    public void AfterLoadBinary() { PulseBinary.super.AfterLoadBinary(); }
+
+    @Override
+    public void BeforeSaveBinary() { PulseBinary.super.BeforeSaveBinary(); }
+
+    @Override
+    public void AfterSaveBinary() { PulseBinary.super.AfterSaveBinary(); }
+
+    @Override
+    public void SaveBinary(boolean debug) { PulseBinary.super.SaveBinary(debug); }
+
+    @Override
+    public void LoadBinary(boolean debug) { PulseBinary.super.LoadBinary(debug); }
+
+    @Override
+    public void DeleteBinary(boolean debug) { PulseBinary.super.DeleteBinary(debug); }
+
+    @Override
+    public void DisplayBinary() { PulseBinary.super.DisplayBinary(); }
 }

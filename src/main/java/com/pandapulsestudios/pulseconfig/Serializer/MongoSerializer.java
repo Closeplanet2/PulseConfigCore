@@ -27,7 +27,7 @@ public class MongoSerializer {
         mongoConnection.InsertOrReplace(pulseMongo.collectionName(), null, pulseMongo.documentID(), convertedDocument);
     }
 
-    private static LinkedHashMap<String, Object> ReturnClassFields(Class<?> parentClass, Object object) throws IllegalAccessException {
+    public static LinkedHashMap<String, Object> ReturnClassFields(Class<?> parentClass, Object object) throws IllegalAccessException {
         var storedData = new LinkedHashMap<String, Object>();
         var dataFields = SerializerHelpers.ReturnALlFields(parentClass, object);
         for(var field : dataFields.keySet()){
@@ -65,9 +65,9 @@ public class MongoSerializer {
             for(var key : saveableArrayList.ReturnArrayList()) returnData.add(SaveMongoSingle(key));
             return returnData;
         } else if(storedData instanceof CustomVariable customVariable){
-            customVariable.BeforeSaveConfig();
+            customVariable.BeforeSave();
             var data = customVariable.SerializeData();
-            customVariable.AfterSaveConfig();
+            customVariable.AfterSave();
             var returnData = new LinkedHashMap<>();
             for(var key : data.keySet()) returnData.put(SaveMongoSingle(key), SaveMongoSingle(data.get(key)));
             return returnData;

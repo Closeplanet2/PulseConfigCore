@@ -27,7 +27,7 @@ public class ConfigSerializer {
         pulseConfig.AfterSaveConfig();
     }
 
-    private static LinkedHashMap<String, Object> ReturnClassFields(Class<?> parentClass, Object object) throws IllegalAccessException {
+    public static LinkedHashMap<String, Object> ReturnClassFields(Class<?> parentClass, Object object) throws IllegalAccessException {
         var storedData = new LinkedHashMap<String, Object>();
         var dataFields = SerializerHelpers.ReturnALlFields(parentClass, object);
         for(var field : dataFields.keySet()){
@@ -40,32 +40,6 @@ public class ConfigSerializer {
         return storedData;
     }
 
-
-    private static LinkedHashMap<Object, Object> SaveConfigSaveableHashmap(SaveableHashmap saveableHashmap) throws IllegalAccessException {
-        var returnData = new LinkedHashMap<>();
-        for(var key : saveableHashmap.keySet()) returnData.put(SaveConfigSingle(key), SaveConfigSingle(saveableHashmap.get(key)));
-        return returnData;
-    }
-
-    private static LinkedHashMap<Object, Object> SaveConfigSaveableLinkedHashMap(SaveableLinkedHashMap saveableLinkedHashMap) throws IllegalAccessException {
-        var returnData = new LinkedHashMap<>();
-        for(var key : saveableLinkedHashMap.keySet()) returnData.put(SaveConfigSingle(key), SaveConfigSingle(saveableLinkedHashMap.get(key)));
-        return returnData;
-    }
-
-    private static ArrayList<Object> SaveConfigSaveableArrayList(SaveableArrayList saveableArrayList) throws IllegalAccessException {
-        var returnData = new ArrayList<>();
-        for(var key : saveableArrayList.ReturnArrayList()) returnData.add(SaveConfigSingle(key));
-        return returnData;
-    }
-
-    private static LinkedHashMap<Object, Object> SaveConfigCustomVariable(CustomVariable customVariable) throws IllegalAccessException {
-        customVariable.BeforeSaveConfig();
-        var data = customVariable.SerializeData();
-        customVariable.AfterSaveConfig();
-        return SaveConfigSaveableHashmap(data);
-    }
-
     public static Object SaveConfigSingle(Object storedData) throws IllegalAccessException {
         if(storedData == null) return null;
         var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(storedData.getClass());
@@ -75,10 +49,29 @@ public class ConfigSerializer {
             pulseClass.AfterSaveConfig();
             return data;
         }
-        else if(storedData instanceof SaveableHashmap saveableHashmap) return SaveConfigSaveableHashmap(saveableHashmap);
-        else if(storedData instanceof SaveableLinkedHashMap saveableLinkedHashMap) return SaveConfigSaveableLinkedHashMap(saveableLinkedHashMap);
-        else if(storedData instanceof SaveableArrayList saveableArrayList) return SaveConfigSaveableArrayList(saveableArrayList);
-        else if(storedData instanceof CustomVariable customVariable) return SaveConfigCustomVariable(customVariable);
+        else if(storedData instanceof SaveableHashmap saveableHashmap){
+            var returnData = new LinkedHashMap<>();
+            for(var key : saveableHashmap.keySet()) returnData.put(SaveConfigSingle(key), SaveConfigSingle(saveableHashmap.get(key)));
+            return returnData;
+        }
+        else if(storedData instanceof SaveableLinkedHashMap saveableLinkedHashMap){
+            var returnData = new LinkedHashMap<>();
+            for(var key : saveableLinkedHashMap.keySet()) returnData.put(SaveConfigSingle(key), SaveConfigSingle(saveableLinkedHashMap.get(key)));
+            return returnData;
+        }
+        else if(storedData instanceof SaveableArrayList saveableArrayList){
+            var returnData = new ArrayList<>();
+            for(var key : saveableArrayList.ReturnArrayList()) returnData.add(SaveConfigSingle(key));
+            return returnData;
+        }
+        else if(storedData instanceof CustomVariable customVariable){
+            customVariable.BeforeSave();
+            var data = customVariable.SerializeData();
+            customVariable.AfterSave();
+            var returnData = new LinkedHashMap<>();
+            for(var key : data.keySet()) returnData.put(SaveConfigSingle(key), SaveConfigSingle(data.get(key)));
+            return returnData;
+        }
         else if(ConfigurationSerialization.class.isAssignableFrom(storedData.getClass())) return storedData;
         else if(storedData instanceof Date date) return SerializerHelpers.SimpleDateFormat.format(date);
         else if(variableTest != null) return variableTest.SerializeData(storedData);

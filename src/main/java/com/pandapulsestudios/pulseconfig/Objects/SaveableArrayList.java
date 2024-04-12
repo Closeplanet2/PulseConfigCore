@@ -5,6 +5,7 @@ import com.pandapulsestudios.pulseconfig.Serializer.MongoDeSerializer;
 import com.pandapulsestudios.pulseconfig.Interface.PulseClass;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulseconfig.Serializer.SerializerHelpers;
+import org.bson.Document;
 
 import java.text.ParseException;
 import java.util.*;
@@ -24,12 +25,12 @@ public class SaveableArrayList<E> {
                 var pulseClas = (PulseClass) SerializerHelpers.CreateClassInstanceBlank(classType);
                 pulseClas.BeforeLoadConfig();
                 Object deSerialised = saveableType == StorageType.MONGO ?
-                        null :
+                        MongoDeSerializer.ReturnClassFields((Document) configObject, pulseClas.getClass(), pulseClas) :
                         ConfigDeSerializer.ReturnClassFields((HashMap<Object, Object>) configObject, pulseClas.getClass(), pulseClas);
                 arrayList.add((E) deSerialised);
                 pulseClas.AfterLoadConfig();
             }else{
-                if(saveableType == StorageType.CONFIG) arrayList.add((E) ConfigDeSerializer.LoadConfigSingle((E) configObject, configObject));
+                if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) arrayList.add((E) ConfigDeSerializer.LoadConfigSingle((E) configObject, configObject));
                 if(saveableType == StorageType.MONGO) arrayList.add((E) MongoDeSerializer.LoadMongoSingle((E) configObject, configObject));
             }
         }

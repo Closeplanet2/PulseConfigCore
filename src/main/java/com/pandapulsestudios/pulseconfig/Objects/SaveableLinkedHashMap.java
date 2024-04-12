@@ -26,7 +26,7 @@ public class SaveableLinkedHashMap<K, V> {
     public void DeSerialiseData(StorageType saveableType, HashMap<Object, Object> configData) throws ParseException, IllegalAccessException {
         for(var key : configData.keySet()){
             hashMap.put(
-                    DeSerialiseKey(saveableType, key, keyType),
+                    (K) DeSerialiseKey(saveableType, key, keyType),
                     (V) DeSerialiseValue(saveableType, configData.get(key), dataType)
             );
         }
@@ -35,7 +35,7 @@ public class SaveableLinkedHashMap<K, V> {
     public void DeSerialiseData(StorageType saveableType, Document configData) throws ParseException, IllegalAccessException {
         for(var key : configData.keySet()){
             hashMap.put(
-                    DeSerialiseKey(saveableType, key, keyType),
+                    (K) DeSerialiseKey(saveableType, key, keyType),
                     (V) DeSerialiseValue(saveableType, configData.get(key), dataType)
             );
         }
@@ -46,12 +46,12 @@ public class SaveableLinkedHashMap<K, V> {
             var pulseClas = (PulseClass) SerializerHelpers.CreateClassInstanceBlank(classType);
             pulseClas.BeforeLoadConfig();
             var deSerialised = saveableType == StorageType.MONGO ?
-                    null :
+                    MongoDeSerializer.ReturnClassFields((Document) configObject, pulseClas.getClass(), pulseClas) :
                     ConfigDeSerializer.ReturnClassFields((HashMap<Object, Object>) configObject, pulseClas.getClass(), pulseClas);
             pulseClas.AfterLoadConfig();
             return (K) deSerialised;
         }else{
-            if(saveableType == StorageType.CONFIG) return (K) ConfigDeSerializer.LoadConfigSingle((K) configObject, configObject);
+            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (K) ConfigDeSerializer.LoadConfigSingle((K) configObject, configObject);
             if(saveableType == StorageType.MONGO) return (K) MongoDeSerializer.LoadMongoSingle((K) configObject, configObject);
         }
         return null;
@@ -62,12 +62,12 @@ public class SaveableLinkedHashMap<K, V> {
             var pulseClas = (PulseClass) SerializerHelpers.CreateClassInstanceBlank(classType);
             pulseClas.BeforeLoadConfig();
             var deSerialised = saveableType == StorageType.MONGO ?
-                    null :
+                    MongoDeSerializer.ReturnClassFields((Document) configObject, pulseClas.getClass(), pulseClas) :
                     ConfigDeSerializer.ReturnClassFields((HashMap<Object, Object>) configObject, pulseClas.getClass(), pulseClas);
             pulseClas.AfterLoadConfig();
             return (V) deSerialised;
         }else{
-            if(saveableType == StorageType.CONFIG) return (V) ConfigDeSerializer.LoadConfigSingle((V) configObject, configObject);
+            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (V) ConfigDeSerializer.LoadConfigSingle((V) configObject, configObject);
             if(saveableType == StorageType.MONGO) return (V) MongoDeSerializer.LoadMongoSingle((K) configObject, configObject);
         }
         return null;

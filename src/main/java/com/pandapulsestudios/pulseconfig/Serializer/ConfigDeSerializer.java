@@ -1,5 +1,6 @@
 package com.pandapulsestudios.pulseconfig.Serializer;
 
+import com.pandapulsestudios.pulseconfig.Interface.CustomVariable;
 import com.pandapulsestudios.pulseconfig.Objects.ConfigObject;
 import com.pandapulsestudios.pulseconfig.Interface.PulseClass;
 import com.pandapulsestudios.pulseconfig.Interface.SaveName;
@@ -9,7 +10,8 @@ import com.pandapulsestudios.pulseconfig.Objects.SaveableHashmap;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableLinkedHashMap;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
-import com.pandapulsestudios.pulsecore.Data.Interface.CustomVariable;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 import java.text.ParseException;
@@ -40,14 +42,6 @@ public class ConfigDeSerializer {
         return object;
     }
 
-    private static CustomVariable LoadConfigCustomVariable(CustomVariable customVariable, HashMap<Integer, Object> configData){
-        if(configData.isEmpty()) return customVariable;
-        customVariable.BeforeLoadConfig();
-        customVariable.DeSerializeData(configData);
-        customVariable.AfterLoadConfig();
-        return customVariable;
-    }
-
     public static Object LoadConfigSingle(Object classData, Object configData) throws IllegalAccessException, ParseException {
         if(classData == null || configData == null) return null;
         var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classData.getClass());
@@ -70,7 +64,11 @@ public class ConfigDeSerializer {
             return saveableArrayList;
         }
         else if(classData instanceof CustomVariable customVariable){
-            return LoadConfigCustomVariable(customVariable, (HashMap<Integer, Object>) configData);
+            var hashMap = (HashMap<Object, Object>) configData;
+            customVariable.BeforeLoad();
+            customVariable.DeSerializeData(hashMap);
+            customVariable.AfterLoad();
+            return customVariable;
         }
         else if(ConfigurationSerialization.class.isAssignableFrom(classData.getClass())) return configData;
         else if(classData instanceof Date) return SerializerHelpers.SimpleDateFormat.parse(configData.toString());
