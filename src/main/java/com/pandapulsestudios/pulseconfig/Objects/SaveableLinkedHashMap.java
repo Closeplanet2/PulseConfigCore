@@ -1,6 +1,7 @@
 package com.pandapulsestudios.pulseconfig.Objects;
 
 import com.pandapulsestudios.pulseconfig.Serializer.ConfigDeSerializer;
+import com.pandapulsestudios.pulseconfig.Serializer.JSONDeSerializer;
 import com.pandapulsestudios.pulseconfig.Serializer.MongoDeSerializer;
 import com.pandapulsestudios.pulseconfig.Interface.PulseClass;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
@@ -53,6 +54,7 @@ public class SaveableLinkedHashMap<K, V> {
         }else{
             if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (K) ConfigDeSerializer.LoadConfigSingle((K) configObject, configObject);
             if(saveableType == StorageType.MONGO) return (K) MongoDeSerializer.LoadMongoSingle((K) configObject, configObject);
+            if(saveableType == StorageType.JSON) return (K) JSONDeSerializer.LoadJSONSingle((K) configObject, configObject);
         }
         return null;
     }
@@ -69,6 +71,7 @@ public class SaveableLinkedHashMap<K, V> {
         }else{
             if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (V) ConfigDeSerializer.LoadConfigSingle((V) configObject, configObject);
             if(saveableType == StorageType.MONGO) return (V) MongoDeSerializer.LoadMongoSingle((K) configObject, configObject);
+            if(saveableType == StorageType.JSON) return (V) JSONDeSerializer.LoadJSONSingle((V) configObject, configObject);
         }
         return null;
     }

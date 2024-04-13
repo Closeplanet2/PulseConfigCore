@@ -1,6 +1,7 @@
 package com.pandapulsestudios.pulseconfig.Objects;
 
 import com.pandapulsestudios.pulseconfig.Serializer.ConfigDeSerializer;
+import com.pandapulsestudios.pulseconfig.Serializer.JSONDeSerializer;
 import com.pandapulsestudios.pulseconfig.Serializer.MongoDeSerializer;
 import com.pandapulsestudios.pulseconfig.Interface.PulseClass;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
@@ -32,6 +33,7 @@ public class SaveableArrayList<E> {
             }else{
                 if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) arrayList.add((E) ConfigDeSerializer.LoadConfigSingle((E) configObject, configObject));
                 if(saveableType == StorageType.MONGO) arrayList.add((E) MongoDeSerializer.LoadMongoSingle((E) configObject, configObject));
+                if(saveableType == StorageType.JSON) arrayList.add((E) JSONDeSerializer.LoadJSONSingle((E) configObject, configObject));
             }
         }
     }

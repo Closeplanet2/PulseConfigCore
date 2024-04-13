@@ -18,6 +18,7 @@ import com.pandapulsestudios.pulseconfig.Objects.MongoConnection;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulsecore.Chat.ChatAPI;
 import com.pandapulsestudios.pulsecore.Java.JavaAPI;
+import com.pandapulsestudios.pulsecore.Java.PulseAutoRegister;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -145,6 +146,7 @@ public class StorageAPI {
         if(PulseMongo.class.isAssignableFrom(storageObject.getClass())) SaveMongo((PulseMongo) storageObject, debugSave);
         if(PulseBinary.class.isAssignableFrom(storageObject.getClass())) SaveBinary((PulseBinary) storageObject, debugSave);
         if(PulseJSON.class.isAssignableFrom(storageObject.getClass())) SaveJSON((PulseJSON) storageObject, debugSave);
+        if(storageObject.getClass().isAnnotationPresent(PulseAutoRegister.class)) com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.put(storageObject.getClass(), storageObject);
     }
 
     public static void Load(Object storageObject, boolean debugSave, StorageType... storageTypes){
@@ -165,6 +167,7 @@ public class StorageAPI {
         if(PulseJSON.class.isAssignableFrom(storageObject.getClass()) && Arrays.asList(storageTypes).contains(StorageType.JSON)){
             LoadJSon((PulseJSON) storageObject, debugSave);
         }
+        if(storageObject.getClass().isAnnotationPresent(PulseAutoRegister.class)) com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.put(storageObject.getClass(), storageObject);
     }
 
     private static void DeleteConfig(PulseConfig pulseConfig, boolean debugSave){

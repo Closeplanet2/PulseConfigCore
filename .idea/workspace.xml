@@ -10,49 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14616205-301f-4e4f-9083-6c776021e73f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PulseBinary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/PulseJSON.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/BinaryFileObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/JsonObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/BinaryConsole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/BinaryDeSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/BinarySerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/JSONConsole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/JSONDeSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/JSONSerializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PulseConfigV4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PulseConfigV4/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/API/BinaryAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/API/BinaryAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/API/ConfigAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/API/ConfigAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/API/JSONAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/API/JSONAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/API/StorageAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/API/StorageAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/ConfigPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/StoragePath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/CustomVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Interface/CustomVariable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/SaveAbleInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/SaveAbleInventory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/SaveableArrayList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/SaveableArrayList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/SaveableHashmap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/SaveableHashmap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/SaveableLinkedHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Objects/SaveableLinkedHashMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/PulseConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/PulseConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/ConfigDeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/ConfigDeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/ConfigSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/ConfigSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/MongoDeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/MongoDeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/MongoSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/Serializer/MongoSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/TestConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pandapulsestudios/pulseconfig/TestConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/API/BinaryAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/API/BinaryAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/API/ConfigAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/API/ConfigAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/API/JSONAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/API/JSONAPI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/API/StorageAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/API/StorageAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/ConfigPath.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/CustomVariable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Interface/CustomVariable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/SaveAbleInventory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/SaveAbleInventory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/SaveableArrayList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/SaveableArrayList.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/SaveableHashmap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/SaveableHashmap.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/SaveableLinkedHashMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Objects/SaveableLinkedHashMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Serializer/ConfigDeSerializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Serializer/ConfigDeSerializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Serializer/ConfigSerializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Serializer/ConfigSerializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Serializer/MongoDeSerializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Serializer/MongoDeSerializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Serializer/MongoSerializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/Serializer/MongoSerializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/TestConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pandapulsestudios/pulseconfig/TestConfig.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,18 +51,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Coding Portfolio/Spigot Plugins/PulseCore/PulseConfig/src/main/java/com/pandapulsestudios/pulseconfig/BinaryAPI",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Coding Portfolio/Spigot Plugins/PulseCore/PulseConfig/src/main/java/com/pandapulsestudios/pulseconfig/BinaryAPI&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Coding Portfolio\Spigot Plugins\PulseCore\PulseConfig\src\main\java\com\pandapulsestudios\pulseconfig\BinaryAPI" />
@@ -143,7 +110,8 @@
       <option name="presentableId" value="Default" />
       <updated>1712764486622</updated>
       <workItem from="1712764487664" duration="27799000" />
-      <workItem from="1712941337050" duration="21097000" />
+      <workItem from="1712941337050" duration="21188000" />
+      <workItem from="1712964198443" duration="2178000" />
     </task>
     <servers />
   </component>
