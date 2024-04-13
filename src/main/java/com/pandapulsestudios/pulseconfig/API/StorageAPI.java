@@ -4,15 +4,9 @@ import com.pandapulsestudios.pulseconfig.Interface.PulseBinary;
 import com.pandapulsestudios.pulseconfig.Interface.PulseJSON;
 import com.pandapulsestudios.pulseconfig.Objects.BinaryFileObject;
 import com.pandapulsestudios.pulseconfig.Objects.ConfigObject;
-import com.pandapulsestudios.pulseconfig.Events.PulseConfigDeleteEvent;
-import com.pandapulsestudios.pulseconfig.Events.PulseConfigLoadEvent;
-import com.pandapulsestudios.pulseconfig.Events.PulseConfigSaveEvent;
 import com.pandapulsestudios.pulseconfig.Interface.PulseConfig;
 import com.pandapulsestudios.pulseconfig.Objects.JsonObject;
 import com.pandapulsestudios.pulseconfig.Serializer.*;
-import com.pandapulsestudios.pulseconfig.Events.PulseMongoDeleteEvent;
-import com.pandapulsestudios.pulseconfig.Events.PulseMongoLoadEvent;
-import com.pandapulsestudios.pulseconfig.Events.PulseMongoSaveEvent;
 import com.pandapulsestudios.pulseconfig.Interface.PulseMongo;
 import com.pandapulsestudios.pulseconfig.Objects.MongoConnection;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
@@ -20,6 +14,7 @@ import com.pandapulsestudios.pulsecore.Chat.ChatAPI;
 import com.pandapulsestudios.pulsecore.Java.JavaAPI;
 import com.pandapulsestudios.pulsecore.Java.PulseAutoRegister;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -29,76 +24,67 @@ import java.util.Arrays;
 
 public class StorageAPI {
     public static void RegisterStatic(JavaPlugin javaPlugin, boolean debugLoad){
-        try { RegisterStaticRaw(javaPlugin, debugLoad);}
-        catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ignored) { }
+        try {RegisterStaticRaw(javaPlugin, debugLoad);}
+        catch (Exception e) {throw new RuntimeException(e);}
     }
 
-    public static void RegisterStaticRaw(JavaPlugin javaPlugin, boolean debugLoad) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public static void RegisterStaticRaw(JavaPlugin javaPlugin, boolean debugLoad) throws Exception {
         for(var autoRegisterClass : JavaAPI.ReturnAllAutoRegisterClasses(javaPlugin)){
             if(PulseConfig.class.isAssignableFrom(autoRegisterClass)){
-                var pulseConfig = (PulseConfig) ReturnStaticRaw(autoRegisterClass);
-                Load(pulseConfig, debugLoad, StorageType.CONFIG);
-                com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.put(autoRegisterClass, pulseConfig);
-                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Pulse Config: %s", pulseConfig.documentID()));
+                LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.CONFIG);
+                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Config Static: %s", autoRegisterClass.getSimpleName()));
             }
             if(PulseMongo.class.isAssignableFrom(autoRegisterClass)){
-                var pulseMongo = (PulseMongo) ReturnStaticRaw(autoRegisterClass);
-                Load(pulseMongo, debugLoad, StorageType.MONGO);
-                com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.put(autoRegisterClass, pulseMongo);
-                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Pulse Mongo: %s", pulseMongo.documentID()));
-            }
-            if(PulseBinary.class.isAssignableFrom(autoRegisterClass)){
-                var pulseBinary = (PulseBinary) ReturnStatic(autoRegisterClass);
-                Load(pulseBinary, debugLoad, StorageType.BINARY);
-                com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.put(autoRegisterClass, pulseBinary);
-                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Pulse Binary: %s", pulseBinary.documentID()));
+                LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.MONGO);
+                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Mongo Static: %s", autoRegisterClass.getSimpleName()));
             }
             if(PulseJSON.class.isAssignableFrom(autoRegisterClass)){
-                var pulseJson = (PulseJSON) ReturnStatic(autoRegisterClass);
-                Load(pulseJson, debugLoad, StorageType.JSON);
+                LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.JSON);
+                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Json Static: %s", autoRegisterClass.getSimpleName()));
+            }
+            if(PulseBinary.class.isAssignableFrom(autoRegisterClass)){
+                LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.BINARY);
+                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Binary Static: %s", autoRegisterClass.getSimpleName()));
             }
         }
+        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_CONFIGS: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.size());
+        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_JSON: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.size());
+        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_MONGO: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.size());
+        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_BINARY: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.size());
     }
 
-    public static Object ReturnStatic(Class<?> classType){
-        try { return ReturnStaticRaw(classType); }
-        catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) { return null; }
+    public static Object ReturnStatic(Class<?> autoRegisterClass, StorageType storageType, boolean createNewInstance){
+        try {return ReturnStaticRaw(autoRegisterClass, storageType, createNewInstance);}
+        catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {throw new RuntimeException(e);}
     }
 
-    public static Object ReturnStaticRaw(Class<?> classType) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        return com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.getOrDefault(classType, classType.getConstructor().newInstance());
+    public static Object ReturnStaticRaw(Class<?> autoRegisterClass, StorageType storageType, boolean createNewInstance) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        if(storageType == StorageType.CONFIG) return com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.getOrDefault(autoRegisterClass, null);
+        if(storageType == StorageType.MONGO) return com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.getOrDefault(autoRegisterClass, null);
+        if(storageType == StorageType.JSON) return com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.getOrDefault(autoRegisterClass, null);
+        if(storageType == StorageType.BINARY) return com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.getOrDefault(autoRegisterClass, null);
+        return createNewInstance ? autoRegisterClass.getConstructor().newInstance() : null;
     }
 
-    public static Object ReloadStatic(Class<?> classType, boolean debug, StorageType... storageTypes){
-        try { return ReloadStaticRaw(classType, debug, storageTypes); }
-        catch (Exception e) { return null; }
+    public static void ReloadStatic(Class<?> autoRegisterClass, StorageType storageType, boolean createNewInstance, boolean debugLoad){
+        try {ReloadStaticRaw(autoRegisterClass, storageType, createNewInstance, debugLoad);
+        } catch (Exception e) {throw new RuntimeException(e);}
     }
 
-    public static Object ReloadStaticRaw(Class<?> classType, boolean debug, StorageType... storageTypes) throws Exception {
-        var document = ReturnStaticRaw(classType);
-        if(document != null){
-            LoadRaw(document, debug, storageTypes);
-            com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.put(classType, document);
-        }
-        return document;
+    public static void ReloadStaticRaw(Class<?> autoRegisterClass, StorageType storageType, boolean createNewInstance, boolean debugLoad) throws Exception {
+        var storageObject = ReturnStaticRaw(autoRegisterClass, storageType, createNewInstance);
+        StorageAPI.LoadRaw(storageObject, debugLoad, storageType);
     }
 
-    public static Object ResetStatic(Class<?> classType, boolean debug, StorageType... storageTypes){
-        try {return ResetStaticRaw(classType, debug, storageTypes);}
-        catch (Exception e) {return null;}
+    public static void ResetStatic(Class<?> autoRegisterClass, StorageType storageType, boolean createNewInstance, boolean debugLoad){
+        try {ResetStaticRaw(autoRegisterClass, storageType, createNewInstance, debugLoad);
+        } catch (Exception e) {throw new RuntimeException(e);}
     }
 
-    public static Object ResetStaticRaw(Class<?> classType, boolean debug, StorageType... storageTypes) throws Exception {
-        DeleteStaticConfigRaw(classType, debug);
-        return ReloadStaticRaw(classType, debug, storageTypes);
-    }
-
-    public static void DeleteStaticConfigRaw(Class<?> classType, boolean debug) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        var document = ReturnStaticRaw(classType);
-        if(document != null){
-            Delete(document, debug);
-            com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.remove(classType);
-        }
+    public static void ResetStaticRaw(Class<?> autoRegisterClass, StorageType storageType, boolean createNewInstance, boolean debugLoad) throws Exception {
+        var storageObject = ReturnStaticRaw(autoRegisterClass, storageType, createNewInstance);
+        DeleteRaw(storageObject, debugLoad);
+        LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, storageType);
     }
 
     public static void Display(Object storageObject, StorageType... storageTypes){
@@ -130,23 +116,34 @@ public class StorageAPI {
     }
 
     public static void DeleteRaw(Object storageObject, boolean debugSave) throws IOException {
-        if(PulseConfig.class.isAssignableFrom(storageObject.getClass())) DeleteConfig((PulseConfig) storageObject, debugSave);
-        if(PulseMongo.class.isAssignableFrom(storageObject.getClass())) DeleteMongo((PulseMongo) storageObject, debugSave);
-        if(PulseBinary.class.isAssignableFrom(storageObject.getClass())) DeleteBinary((PulseBinary) storageObject, debugSave);
-        if(PulseJSON.class.isAssignableFrom(storageObject.getClass())) DeleteJSON((PulseJSON) storageObject, debugSave);
-    }
-
-    public static void Save(Object storageObject, boolean debugSave) {
-        try {SaveRaw(storageObject, debugSave);}
-        catch (Exception e) {throw new RuntimeException(e);}
-    }
-
-    public static void SaveRaw(Object storageObject, boolean debugSave) throws Exception {
-        if(PulseConfig.class.isAssignableFrom(storageObject.getClass())) SaveConfig((PulseConfig) storageObject, debugSave);
-        if(PulseMongo.class.isAssignableFrom(storageObject.getClass())) SaveMongo((PulseMongo) storageObject, debugSave);
-        if(PulseBinary.class.isAssignableFrom(storageObject.getClass())) SaveBinary((PulseBinary) storageObject, debugSave);
-        if(PulseJSON.class.isAssignableFrom(storageObject.getClass())) SaveJSON((PulseJSON) storageObject, debugSave);
-        if(storageObject.getClass().isAnnotationPresent(PulseAutoRegister.class)) com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.put(storageObject.getClass(), storageObject);
+        if(PulseConfig.class.isAssignableFrom(storageObject.getClass())){
+            var pulseConfig = (PulseConfig) storageObject;
+            var configObject = new ConfigObject(ConfigAPI.ReturnConfigPath(pulseConfig), pulseConfig.documentID(), debugSave);
+            configObject.DeleteConfig();
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.remove(storageObject.getClass());
+        }
+        if(PulseMongo.class.isAssignableFrom(storageObject.getClass())){
+            var pulseMongo = (PulseMongo) storageObject;
+            var mongoConnection = com.pandapulsestudios.pulseconfig.PulseConfig.mongoConnections.getOrDefault(pulseMongo.databaseName(), new MongoConnection(pulseMongo.mongoIP(), pulseMongo.databaseName(), debugSave));
+            mongoConnection.Delete(pulseMongo.collectionName(), null, pulseMongo.documentID());
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.remove(storageObject.getClass());
+        }
+        if(PulseBinary.class.isAssignableFrom(storageObject.getClass())){
+            var pulseBinary = (PulseBinary) storageObject;
+            var binaryFileObject = new BinaryFileObject(pulseBinary, debugSave);
+            binaryFileObject.Delete(pulseBinary);
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.remove(storageObject.getClass());
+        }
+        if(PulseJSON.class.isAssignableFrom(storageObject.getClass())) {
+            var pulseJSON = (PulseJSON) storageObject;
+            var jsonObject = new JsonObject(pulseJSON, debugSave);
+            jsonObject.DeleteConfig(pulseJSON);
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.remove(storageObject.getClass());
+        }
+        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_CONFIGS: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.size());
+        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_JSON: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.size());
+        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_MONGO: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.size());
+        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_BINARY: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.size());
     }
 
     public static void Load(Object storageObject, boolean debugSave, StorageType... storageTypes){
@@ -156,113 +153,86 @@ public class StorageAPI {
 
     public static void LoadRaw(Object storageObject, boolean debugSave, StorageType... storageTypes) throws Exception {
         if(PulseConfig.class.isAssignableFrom(storageObject.getClass()) && Arrays.asList(storageTypes).contains(StorageType.CONFIG)){
-            LoadConfig((PulseConfig) storageObject, debugSave);
+            var pulseConfig = (PulseConfig) storageObject;
+            var configObject = new ConfigObject(ConfigAPI.ReturnConfigPath(pulseConfig), pulseConfig.documentID(), debugSave);
+            if(configObject.FirstSave()){
+                pulseConfig.FirstLoadConfig();
+                SaveRaw(pulseConfig, debugSave);
+            }else{
+                ConfigDeSerializer.LoadConfig(pulseConfig, configObject);
+            }
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.put(storageObject.getClass(), pulseConfig);
         }
+
         if(PulseMongo.class.isAssignableFrom(storageObject.getClass()) && Arrays.asList(storageTypes).contains(StorageType.MONGO)){
-            LoadMongo((PulseMongo) storageObject, debugSave);
+            var pulseMongo = (PulseMongo) storageObject;
+            var mongoConnection = com.pandapulsestudios.pulseconfig.PulseConfig.mongoConnections.getOrDefault(pulseMongo.databaseName(), new MongoConnection(pulseMongo.mongoIP(), pulseMongo.databaseName(), debugSave));
+            if(mongoConnection.CountDocuments(pulseMongo.collectionName(), null, pulseMongo.documentID()) == 0){
+                pulseMongo.FirstLoadMongo();
+                SaveRaw(pulseMongo, debugSave);
+            }else{
+                MongoDeSerializer.LoadMongo(pulseMongo, mongoConnection);
+            }
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.put(storageObject.getClass(), pulseMongo);
         }
+
         if(PulseBinary.class.isAssignableFrom(storageObject.getClass()) && Arrays.asList(storageTypes).contains(StorageType.BINARY)){
-            LoadBinary((PulseBinary) storageObject, debugSave);
+            var pulseBinary = (PulseBinary) storageObject;
+            var binaryFileObject = new BinaryFileObject(pulseBinary, debugSave);
+            if(binaryFileObject.FirstSave()){
+                pulseBinary.FirstLoadBinary();
+                SaveRaw(pulseBinary, debugSave);
+            }else{
+                BinaryDeSerializer.LoadBinary(pulseBinary, binaryFileObject);
+            }
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.put(storageObject.getClass(), pulseBinary);
         }
+
         if(PulseJSON.class.isAssignableFrom(storageObject.getClass()) && Arrays.asList(storageTypes).contains(StorageType.JSON)){
-            LoadJSon((PulseJSON) storageObject, debugSave);
-        }
-        if(storageObject.getClass().isAnnotationPresent(PulseAutoRegister.class)) com.pandapulsestudios.pulseconfig.PulseConfig.staticConfigs.put(storageObject.getClass(), storageObject);
-    }
-
-    private static void DeleteConfig(PulseConfig pulseConfig, boolean debugSave){
-        var configObject = new ConfigObject(ConfigAPI.ReturnConfigPath(pulseConfig), pulseConfig.documentID(), debugSave);
-        var configDeleteEvent = new PulseConfigDeleteEvent(pulseConfig);
-        Bukkit.getServer().getPluginManager().callEvent(configDeleteEvent);
-        if(!configDeleteEvent.isCancelled()) configObject.DeleteConfig();
-    }
-
-    private static void DeleteMongo(PulseMongo pulseMongo, boolean debugSave){
-        var mongoConnection = com.pandapulsestudios.pulseconfig.PulseConfig.mongoConnections.getOrDefault(pulseMongo.databaseName(), new MongoConnection(pulseMongo.mongoIP(), pulseMongo.databaseName(), debugSave));
-        var configSaveEvent = new PulseMongoDeleteEvent(pulseMongo);
-        Bukkit.getServer().getPluginManager().callEvent(configSaveEvent);
-        if(!configSaveEvent.isCancelled()) mongoConnection.Delete(pulseMongo.collectionName(), null, pulseMongo.documentID());
-    }
-
-    private static void DeleteBinary(PulseBinary pulseBinary, boolean debugSave) throws IOException {
-        var binaryFileObject = new BinaryFileObject(pulseBinary, debugSave);
-        binaryFileObject.Delete(pulseBinary);
-    }
-
-    private static void DeleteJSON(PulseJSON pulseJSON, boolean debugSave){
-        var jsonObject = new JsonObject(pulseJSON, debugSave);
-        jsonObject.DeleteConfig(pulseJSON);
-    }
-
-    private static void SaveConfig(PulseConfig pulseConfig, boolean debugSave) throws IllegalAccessException{
-        var configObject = new ConfigObject(ConfigAPI.ReturnConfigPath(pulseConfig), pulseConfig.documentID(), debugSave);
-        if(configObject.FirstSave()) pulseConfig.FirstLoadConfig();
-        var configSaveEvent = new PulseConfigSaveEvent(pulseConfig);
-        Bukkit.getServer().getPluginManager().callEvent(configSaveEvent);
-        if(!configSaveEvent.isCancelled()) ConfigSerializer.SaveConfig(pulseConfig, configObject);
-    }
-
-    private static void SaveMongo(PulseMongo pulseMongo, boolean debugSave) throws IllegalAccessException {
-        var mongoConnection = com.pandapulsestudios.pulseconfig.PulseConfig.mongoConnections.getOrDefault(pulseMongo.databaseName(), new MongoConnection(pulseMongo.mongoIP(), pulseMongo.databaseName(), debugSave));
-        if(mongoConnection.CountDocuments(pulseMongo.collectionName(), null, pulseMongo.documentID()) == 0) pulseMongo.FirstLoadMongo();
-        var configSaveEvent = new PulseMongoSaveEvent(pulseMongo);
-        Bukkit.getServer().getPluginManager().callEvent(configSaveEvent);
-        if(!configSaveEvent.isCancelled()) MongoSerializer.SaveMongo(pulseMongo, mongoConnection);
-    }
-
-    private static void SaveBinary(PulseBinary pulseBinary, boolean debugSave) throws IOException, IllegalAccessException {
-        var binaryFileObject = new BinaryFileObject(pulseBinary, debugSave);
-        if(binaryFileObject.FirstSave()) pulseBinary.FirstLoadBinary();
-        BinarySerializer.SaveBinary(pulseBinary, binaryFileObject);
-    }
-
-    private static void SaveJSON(PulseJSON pulseJSON, boolean debugSave) throws Exception {
-        var jsonObject = new JsonObject(pulseJSON, debugSave);
-        if(jsonObject.FirstSave()) pulseJSON.FirstLoadJSON();
-        JSONSerializer.SaveJSON(pulseJSON, jsonObject);
-    }
-
-    private static void LoadConfig(PulseConfig pulseConfig, boolean debugSave) throws IllegalAccessException, ParseException {
-        var configObject = new ConfigObject(ConfigAPI.ReturnConfigPath(pulseConfig), pulseConfig.documentID(), debugSave);
-        if(configObject.FirstSave()){
-            pulseConfig.FirstLoadConfig();
-            SaveConfig(pulseConfig, debugSave);
-        }else{
-            var configLoadEvent = new PulseConfigLoadEvent(pulseConfig);
-            Bukkit.getServer().getPluginManager().callEvent(configLoadEvent);
-            if(!configLoadEvent.isCancelled()) ConfigDeSerializer.LoadConfig(pulseConfig, configObject);
+            var pulseJSON = (PulseJSON) storageObject;
+            var jsonObject = new JsonObject(pulseJSON, debugSave);
+            if(jsonObject.FirstSave()){
+                pulseJSON.FirstLoadJSON();
+                SaveRaw(pulseJSON, debugSave);
+            }else{
+                JSONDeSerializer.LoadJSON(pulseJSON, jsonObject);
+            }
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.put(storageObject.getClass(), pulseJSON);
         }
     }
 
-    private static void LoadMongo(PulseMongo pulseMongo, boolean debugSave) throws ParseException, IllegalAccessException {
-        var mongoConnection = com.pandapulsestudios.pulseconfig.PulseConfig.mongoConnections.getOrDefault(pulseMongo.databaseName(), new MongoConnection(pulseMongo.mongoIP(), pulseMongo.databaseName(), debugSave));
-        if(mongoConnection.CountDocuments(pulseMongo.collectionName(), null, pulseMongo.documentID()) == 0){
-            pulseMongo.FirstLoadMongo();
-            SaveMongo(pulseMongo, debugSave);
-        }else{
-            var configSaveEvent = new PulseMongoLoadEvent(pulseMongo);
-            Bukkit.getServer().getPluginManager().callEvent(configSaveEvent);
-            if(!configSaveEvent.isCancelled()) MongoDeSerializer.LoadMongo(pulseMongo, mongoConnection);
-        }
+    public static void Save(Object storageObject, boolean debugSave) {
+        try {SaveRaw(storageObject, debugSave);}
+        catch (Exception e) {throw new RuntimeException(e);}
     }
 
-    private static void LoadBinary(PulseBinary pulseBinary, boolean debugSave) throws IOException, IllegalAccessException, ParseException, ClassNotFoundException {
-        var binaryFileObject = new BinaryFileObject(pulseBinary, debugSave);
-        if(binaryFileObject.FirstSave()){
-            pulseBinary.FirstLoadBinary();
-            SaveBinary(pulseBinary, debugSave);
-        }else{
-            BinaryDeSerializer.LoadBinary(pulseBinary, binaryFileObject);
+    public static void SaveRaw(Object storageObject, boolean debugSave) throws Exception {
+        if(PulseConfig.class.isAssignableFrom(storageObject.getClass())){
+            var pulseConfig = (PulseConfig) storageObject;
+            var configObject = new ConfigObject(ConfigAPI.ReturnConfigPath(pulseConfig), pulseConfig.documentID(), debugSave);
+            if(configObject.FirstSave()) pulseConfig.FirstLoadConfig();
+            ConfigSerializer.SaveConfig(pulseConfig, configObject);
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.put(storageObject.getClass(), pulseConfig);
         }
-    }
-
-    private static void LoadJSon(PulseJSON pulseJSON, boolean debugSave) throws Exception {
-        var jsonObject = new JsonObject(pulseJSON, debugSave);
-        if(jsonObject.FirstSave()){
-            pulseJSON.FirstLoadJSON();
-            SaveJSON(pulseJSON, debugSave);
-        }else{
-            JSONDeSerializer.LoadJSON(pulseJSON, jsonObject);
+        if(PulseMongo.class.isAssignableFrom(storageObject.getClass())){
+            var pulseMongo = (PulseMongo) storageObject;
+            var mongoConnection = com.pandapulsestudios.pulseconfig.PulseConfig.mongoConnections.getOrDefault(pulseMongo.databaseName(), new MongoConnection(pulseMongo.mongoIP(), pulseMongo.databaseName(), debugSave));
+            if(mongoConnection.CountDocuments(pulseMongo.collectionName(), null, pulseMongo.documentID()) == 0) pulseMongo.FirstLoadMongo();
+            MongoSerializer.SaveMongo(pulseMongo, mongoConnection);
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.put(storageObject.getClass(), pulseMongo);
+        }
+        if(PulseBinary.class.isAssignableFrom(storageObject.getClass())){
+            var pulseBinary = (PulseBinary) storageObject;
+            var binaryFileObject = new BinaryFileObject(pulseBinary, debugSave);
+            if(binaryFileObject.FirstSave()) pulseBinary.FirstLoadBinary();
+            BinarySerializer.SaveBinary(pulseBinary, binaryFileObject);
+            com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.put(storageObject.getClass(), pulseBinary);
+        }
+        if(PulseJSON.class.isAssignableFrom(storageObject.getClass())){
+            var pulseJSON = (PulseJSON) storageObject;
+            var jsonObject = new JsonObject(pulseJSON, debugSave);
+            if(jsonObject.FirstSave()) pulseJSON.FirstLoadJSON();
+            JSONSerializer.SaveJSON(pulseJSON, jsonObject);
         }
     }
 }

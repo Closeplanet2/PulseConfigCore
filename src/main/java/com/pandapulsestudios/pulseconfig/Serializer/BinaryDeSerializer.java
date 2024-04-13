@@ -19,7 +19,6 @@ public class BinaryDeSerializer {
         binaryFileObject.fileInputStream.close();
         binaryFileObject.objectInputStream.close();
         pulseBinary.AfterLoadBinary();
-        BinarySerializer.SaveBinary(pulseBinary, binaryFileObject);
     }
 
 }

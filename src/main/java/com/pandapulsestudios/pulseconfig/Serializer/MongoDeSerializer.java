@@ -27,7 +27,6 @@ public class MongoDeSerializer {
         var storedData = mongoConnection.GetOne(pulseMongo.collectionName(), null, pulseMongo.documentID());
         var data = ReturnClassFields(storedData, pulseMongo.getClass(), pulseMongo);
         pulseMongo.AfterLoadMongo();
-        MongoSerializer.SaveMongo(pulseMongo, mongoConnection);
     }
 
     public static Object ReturnClassFields(Document configData, Class<?> parentClass, Object object) throws IllegalAccessException, ParseException {

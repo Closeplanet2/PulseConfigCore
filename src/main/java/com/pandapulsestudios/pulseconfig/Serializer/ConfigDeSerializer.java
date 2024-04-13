@@ -23,7 +23,6 @@ public class ConfigDeSerializer {
         var storedData = configObject.HashMap(pulseConfig.documentID(), true);
         var data = ReturnClassFields(storedData, pulseConfig.getClass(), pulseConfig);
         pulseConfig.AfterLoadConfig();
-        ConfigSerializer.SaveConfig(pulseConfig, configObject);
     }
 
     public static Object ReturnClassFields(HashMap<Object, Object> configData, Class<?> parentClass, Object object) throws IllegalAccessException, ParseException {
@@ -52,15 +51,19 @@ public class ConfigDeSerializer {
             return data;
         }
         else if(classData instanceof SaveableHashmap saveableHashmap){
+            saveableHashmap.clear();
             saveableHashmap.DeSerialiseData(StorageType.CONFIG, (HashMap<Object, Object>) configData);
             return saveableHashmap;
         }
         else if(classData instanceof SaveableLinkedHashMap saveableLinkedHashMap){
+            saveableLinkedHashMap.clear();
             saveableLinkedHashMap.DeSerialiseData(StorageType.CONFIG, (HashMap<Object, Object>) configData);
             return saveableLinkedHashMap;
         }
         else if(classData instanceof SaveableArrayList saveableArrayList) {
+            saveableArrayList.clear();
             saveableArrayList.DeSerialiseData(StorageType.CONFIG, (ArrayList<Object>) configData);
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + saveableArrayList.ReturnArrayList().toString());
             return saveableArrayList;
         }
         else if(classData instanceof CustomVariable customVariable){

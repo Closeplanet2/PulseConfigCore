@@ -1,5 +1,5 @@
 name: PulseConfig
-version: 1.4.0-a
+version: 1.4.1-a
 main: com.pandapulsestudios.pulseconfig.PulseConfig
 authors: [Closeplanet2, PandaPulseStudios]
 depend: [PulseCore]
