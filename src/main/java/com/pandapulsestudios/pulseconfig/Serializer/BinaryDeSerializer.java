@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 
 public class BinaryDeSerializer {
-    public static void LoadBinary(PulseBinary pulseBinary, BinaryFileObject binaryFileObject) throws IOException, ClassNotFoundException, ParseException, IllegalAccessException {
+    public static void LoadBinary(PulseBinary pulseBinary, BinaryFileObject binaryFileObject) throws Exception {
         binaryFileObject.ChangeFlag(pulseBinary, false);
         pulseBinary.BeforeLoadBinary();
         var storedData = (HashMap<Object, Object>) binaryFileObject.objectInputStream.readObject();

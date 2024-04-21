@@ -1,5 +1,6 @@
 package com.pandapulsestudios.pulseconfig.API;
 
+import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulseconfig.Interface.PulseBinary;
 import com.pandapulsestudios.pulseconfig.Interface.PulseJSON;
 import com.pandapulsestudios.pulseconfig.Interface.StoragePath;
@@ -18,7 +19,7 @@ public class JSONAPI {
             var newInstance = SerializerHelpers.CreateInstanceWithID(fileName, pulseJSON.getClass());
             if(newInstance == null) continue;
             var pj = (PulseJSON) newInstance;
-            StorageAPI.Load(pj, debug);
+            StorageAPI.Load(pj, debug, StorageType.JSON);
             data.put(fileName, pj);
         }
         return data;

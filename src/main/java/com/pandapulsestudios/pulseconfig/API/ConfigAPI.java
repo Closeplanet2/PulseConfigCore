@@ -1,5 +1,6 @@
 package com.pandapulsestudios.pulseconfig.API;
 
+import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulseconfig.Interface.StoragePath;
 import com.pandapulsestudios.pulseconfig.Interface.PulseConfig;
 import com.pandapulsestudios.pulseconfig.Serializer.SerializerHelpers;
@@ -17,7 +18,7 @@ public class ConfigAPI {
             var newInstance = SerializerHelpers.CreateInstanceWithID(fileName, pulseConfig.getClass());
             if(newInstance == null) continue;
             var pc = (PulseConfig) newInstance;
-            StorageAPI.Load(pc, debug);
+            StorageAPI.Load(pc, debug, StorageType.CONFIG);
             data.put(fileName, pc);
         }
         return data;

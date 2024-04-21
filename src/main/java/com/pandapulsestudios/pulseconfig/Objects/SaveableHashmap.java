@@ -6,7 +6,11 @@ import com.pandapulsestudios.pulseconfig.Serializer.MongoDeSerializer;
 import com.pandapulsestudios.pulseconfig.Interface.PulseClass;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulseconfig.Serializer.SerializerHelpers;
+import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
 import org.bson.Document;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.json.simple.JSONObject;
 
 import java.text.ParseException;
 import java.util.HashMap;
@@ -23,56 +27,62 @@ public class SaveableHashmap<K, V> {
         this.dataType = dataType;
     }
 
-    public void DeSerialiseData(StorageType saveableType, HashMap<Object, Object> configData) throws ParseException, IllegalAccessException {
+    public void DeSerialiseData(StorageType saveableType, HashMap<Object, Object> configData) throws Exception {
         for(var key : configData.keySet()){
-            hashMap.put(
-                    (K) DeSerialiseKey(saveableType, key, keyType),
-                    (V) DeSerialiseValue(saveableType, configData.get(key), dataType)
-            );
+            var dx = DeSerialiseKey(saveableType, key, keyType);
+            var dy = DeSerialiseValue(saveableType, configData.get(key), dataType);
+            hashMap.put(dx, dy);
         }
     }
 
-    public void DeSerialiseData(StorageType saveableType, Document configData) throws ParseException, IllegalAccessException {
-        for(var key : configData.keySet()){
-            hashMap.put(
-                    (K) DeSerialiseKey(saveableType, key, keyType),
-                    (V) DeSerialiseValue(saveableType, configData.get(key), dataType)
-            );
+    public void DeSerialiseData(StorageType saveableType, Document document) throws Exception {
+        for(var key : document.keySet()){
+            var dx = DeSerialiseKey(saveableType, key, keyType);
+            var dy = DeSerialiseValue(saveableType, document.get(key), dataType);
+            hashMap.put(dx, dy);
         }
     }
 
-    private K DeSerialiseKey(StorageType saveableType, Object configObject, Class<?> classType) throws ParseException, IllegalAccessException {
+    private K DeSerialiseKey(StorageType saveableType, Object configObject, Class<?> classType) throws Exception {
         if(PulseClass.class.isAssignableFrom(classType)){
             var pulseClas = (PulseClass) SerializerHelpers.CreateClassInstanceBlank(classType);
             pulseClas.BeforeLoadConfig();
-            var deSerialised = saveableType == StorageType.MONGO ?
-                    MongoDeSerializer.ReturnClassFields((Document) configObject, pulseClas.getClass(), pulseClas) :
-                    ConfigDeSerializer.ReturnClassFields((HashMap<Object, Object>) configObject, pulseClas.getClass(), pulseClas);
+            Object deSerialised;
+            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY){
+                deSerialised = ConfigDeSerializer.ReturnClassFields((HashMap<Object, Object>) configObject, pulseClas.getClass(), pulseClas);
+            } else if(saveableType == StorageType.MONGO){
+                deSerialised = MongoDeSerializer.ReturnClassFieldsMap((Document) configObject, pulseClas.getClass(), pulseClas);
+            } else deSerialised = JSONDeSerializer.ReturnClassFields((HashMap<Object, Object>) configObject, pulseClas.getClass(), pulseClas);
             pulseClas.AfterLoadConfig();
             return (K) deSerialised;
         }else{
-            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (K) ConfigDeSerializer.LoadConfigSingle((K) configObject, configObject);
-            if(saveableType == StorageType.MONGO) return (K) MongoDeSerializer.LoadMongoSingle((K) configObject, configObject);
-            if(saveableType == StorageType.JSON) return (K) JSONDeSerializer.LoadJSONSingle((K) configObject, configObject);
+            var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classType);
+            if(variableTest != null) configObject = variableTest.DeSerializeData(configObject);
+            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (K) ConfigDeSerializer.LoadConfigSingle(configObject, configObject);
+            if(saveableType == StorageType.MONGO) return (K) MongoDeSerializer.LoadMongoSingle(keyType, configObject, configObject);
+            return (K) JSONDeSerializer.LoadJSONSingle(configObject, configObject);
         }
-        return null;
     }
 
-    private V DeSerialiseValue(StorageType saveableType, Object configObject, Class<?> classType) throws ParseException, IllegalAccessException {
+    private V DeSerialiseValue(StorageType saveableType, Object configObject, Class<?> classType) throws Exception {
         if(PulseClass.class.isAssignableFrom(classType)){
             var pulseClas = (PulseClass) SerializerHelpers.CreateClassInstanceBlank(classType);
             pulseClas.BeforeLoadConfig();
-            var deSerialised = saveableType == StorageType.MONGO ?
-                    MongoDeSerializer.ReturnClassFields((Document) configObject, pulseClas.getClass(), pulseClas) :
-                    ConfigDeSerializer.ReturnClassFields((HashMap<Object, Object>) configObject, pulseClas.getClass(), pulseClas);
+            Object deSerialised;
+            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY){
+                deSerialised = ConfigDeSerializer.ReturnClassFields((HashMap<Object, Object>) configObject, pulseClas.getClass(), pulseClas);
+            } else if(saveableType == StorageType.MONGO){
+                deSerialised = MongoDeSerializer.ReturnClassFieldsMap((Document) configObject, pulseClas.getClass(), pulseClas);
+            } else deSerialised = JSONDeSerializer.ReturnClassFields((HashMap<Object, Object>) configObject, pulseClas.getClass(), pulseClas);
             pulseClas.AfterLoadConfig();
             return (V) deSerialised;
         }else{
-            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (V) ConfigDeSerializer.LoadConfigSingle((V) configObject, configObject);
-            if(saveableType == StorageType.MONGO) return (V) MongoDeSerializer.LoadMongoSingle((V) configObject, configObject);
-            if(saveableType == StorageType.JSON) return (V) JSONDeSerializer.LoadJSONSingle((V) configObject, configObject);
+            var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classType);
+            if(variableTest != null) configObject = variableTest.DeSerializeData(configObject);
+            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (V) ConfigDeSerializer.LoadConfigSingle(configObject, configObject);
+            if(saveableType == StorageType.MONGO) return (V) MongoDeSerializer.LoadMongoSingle(dataType, configObject, configObject);
+            return (V) JSONDeSerializer.LoadJSONSingle(configObject, configObject);
         }
-        return null;
     }
 
 

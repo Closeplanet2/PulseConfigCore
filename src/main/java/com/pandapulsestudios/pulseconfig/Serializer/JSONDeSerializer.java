@@ -5,6 +5,8 @@ import com.pandapulsestudios.pulseconfig.Interface.*;
 import com.pandapulsestudios.pulseconfig.Objects.*;
 import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
 import org.bson.Document;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 import java.text.ParseException;
@@ -21,11 +23,13 @@ public class JSONDeSerializer {
         pulseJson.AfterLoadJSON();
     }
 
-    public static Object ReturnClassFields(HashMap<Object, Object> configData, Class<?> parentClass, Object object) throws IllegalAccessException, ParseException {
+    public static Object ReturnClassFields(HashMap<Object, Object> configData, Class<?> parentClass, Object object) throws Exception {
         var dataFields = SerializerHelpers.ReturnALlFields(parentClass, object);
         for(var field : dataFields.keySet()){
             var fieldName = field.isAnnotationPresent(SaveName.class) ? field.getAnnotation(SaveName.class).value() : field.getName();
-            if(!configData.containsKey(fieldName)) field.set(object, MongoSerializer.SaveMongoSingle(dataFields.get(field)));
+            if(!configData.containsKey(fieldName)){
+                field.set(object, MongoSerializer.SaveMongoSingle(dataFields.get(field)));
+            }
             else {
                 var deSerialisedData = LoadJSONSingle(dataFields.get(field), configData.get(fieldName));
                 if(deSerialisedData != null){
@@ -37,7 +41,7 @@ public class JSONDeSerializer {
         return object;
     }
 
-    public static Object LoadJSONSingle(Object classData, Object configData) throws IllegalAccessException, ParseException {
+    public static Object LoadJSONSingle(Object classData, Object configData) throws Exception {
         if(classData == null || configData == null) return null;
         var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classData.getClass());
         if(classData instanceof SaveAbleInventory){
@@ -50,13 +54,13 @@ public class JSONDeSerializer {
             pulseClass.AfterLoadConfig();
             return data;
         } else if(classData instanceof SaveableHashmap saveableHashmap){
-            saveableHashmap.DeSerialiseData(StorageType.MONGO, (HashMap<Object, Object>) configData);
+            saveableHashmap.DeSerialiseData(StorageType.JSON, (HashMap<Object, Object>) configData);
             return saveableHashmap;
         } else if(classData instanceof SaveableLinkedHashMap saveableLinkedHashMap){
-            saveableLinkedHashMap.DeSerialiseData(StorageType.MONGO, (HashMap<Object, Object>) configData);
+            saveableLinkedHashMap.DeSerialiseData(StorageType.JSON, (HashMap<Object, Object>) configData);
             return saveableLinkedHashMap;
         } else if(classData instanceof SaveableArrayList saveableArrayList) {
-            saveableArrayList.DeSerialiseData(StorageType.MONGO, (ArrayList<Object>) configData);
+            saveableArrayList.DeSerialiseData(StorageType.JSON, (ArrayList<Object>) configData);
             return saveableArrayList;
         } else if(classData instanceof CustomVariable customVariable){
             var hashMap = (HashMap<Object, Object>) configData;

@@ -91,7 +91,7 @@ public class MongoConsole {
         }else if(storedData instanceof SaveableArrayList saveableArrayList){
             return ConsoleOutputSaveableArrayList(saveableArrayList, indent + 1);
         }else if(storedData instanceof CustomVariable customVariable){
-            return null;
+            return ConsoleOutputSaveableHashmap(customVariable.SerializeData(), indent + 1);
         }else if(storedData instanceof Date date){
             return date.toString();
         }else if(variableTest != null){

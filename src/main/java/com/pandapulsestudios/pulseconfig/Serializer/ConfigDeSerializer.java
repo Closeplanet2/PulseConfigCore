@@ -18,14 +18,14 @@ import java.text.ParseException;
 import java.util.*;
 
 public class ConfigDeSerializer {
-    public static void LoadConfig(PulseConfig pulseConfig, ConfigObject configObject) throws IllegalAccessException, ParseException {
+    public static void LoadConfig(PulseConfig pulseConfig, ConfigObject configObject) throws Exception {
         pulseConfig.BeforeLoadConfig();
         var storedData = configObject.HashMap(pulseConfig.documentID(), true);
         var data = ReturnClassFields(storedData, pulseConfig.getClass(), pulseConfig);
         pulseConfig.AfterLoadConfig();
     }
 
-    public static Object ReturnClassFields(HashMap<Object, Object> configData, Class<?> parentClass, Object object) throws IllegalAccessException, ParseException {
+    public static Object ReturnClassFields(HashMap<Object, Object> configData, Class<?> parentClass, Object object) throws Exception {
         var dataFields = SerializerHelpers.ReturnALlFields(parentClass, object);
         for(var field : dataFields.keySet()){
             var fieldName = field.isAnnotationPresent(SaveName.class) ? field.getAnnotation(SaveName.class).value() : field.getName();
@@ -41,7 +41,7 @@ public class ConfigDeSerializer {
         return object;
     }
 
-    public static Object LoadConfigSingle(Object classData, Object configData) throws IllegalAccessException, ParseException {
+    public static Object LoadConfigSingle(Object classData, Object configData) throws Exception {
         if(classData == null || configData == null) return null;
         var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classData.getClass());
         if(classData instanceof PulseClass pulseClass){
@@ -63,7 +63,6 @@ public class ConfigDeSerializer {
         else if(classData instanceof SaveableArrayList saveableArrayList) {
             saveableArrayList.clear();
             saveableArrayList.DeSerialiseData(StorageType.CONFIG, (ArrayList<Object>) configData);
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + saveableArrayList.ReturnArrayList().toString());
             return saveableArrayList;
         }
         else if(classData instanceof CustomVariable customVariable){

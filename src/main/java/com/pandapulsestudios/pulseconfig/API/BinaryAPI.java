@@ -1,5 +1,6 @@
 package com.pandapulsestudios.pulseconfig.API;
 
+import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulseconfig.Interface.StoragePath;
 import com.pandapulsestudios.pulseconfig.Interface.PulseBinary;
 import com.pandapulsestudios.pulseconfig.Interface.PulseConfig;
@@ -18,7 +19,7 @@ public class BinaryAPI {
             var newInstance = SerializerHelpers.CreateInstanceWithID(fileName, pulseBinary.getClass());
             if(newInstance == null) continue;
             var bc = (PulseBinary) newInstance;
-            StorageAPI.Load(bc, debug);
+            StorageAPI.Load(bc, debug, StorageType.BINARY);
             data.put(fileName, bc);
         }
         return data;
