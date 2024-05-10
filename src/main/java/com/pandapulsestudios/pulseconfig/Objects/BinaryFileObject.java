@@ -2,8 +2,7 @@ package com.pandapulsestudios.pulseconfig.Objects;
 
 import com.pandapulsestudios.pulseconfig.API.BinaryAPI;
 import com.pandapulsestudios.pulseconfig.Interface.PulseBinary;
-import com.pandapulsestudios.pulsecore.FileSystem.DirAPI;
-import com.pandapulsestudios.pulsecore.FileSystem.FileAPI;
+import com.pandapulsestudios.pulsecore.FileAPI.DirAPI;
 
 import java.io.*;
 

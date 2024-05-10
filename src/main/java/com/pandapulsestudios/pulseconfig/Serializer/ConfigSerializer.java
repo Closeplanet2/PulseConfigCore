@@ -11,7 +11,9 @@ import com.pandapulsestudios.pulseconfig.Interface.SaveName;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableArrayList;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableHashmap;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableLinkedHashMap;
-import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
+import com.pandapulsestudios.pulsecore.VariableAPI.API.VariableAPI;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 import java.util.ArrayList;
@@ -62,6 +64,7 @@ public class ConfigSerializer {
         else if(storedData instanceof SaveableArrayList saveableArrayList){
             var returnData = new ArrayList<>();
             for(var key : saveableArrayList.ReturnArrayList()) returnData.add(SaveConfigSingle(key));
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "Saving: " + returnData.size());
             return returnData;
         }
         else if(storedData instanceof CustomVariable customVariable){

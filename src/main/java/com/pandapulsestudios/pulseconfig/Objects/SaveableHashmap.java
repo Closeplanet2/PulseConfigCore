@@ -6,7 +6,7 @@ import com.pandapulsestudios.pulseconfig.Serializer.MongoDeSerializer;
 import com.pandapulsestudios.pulseconfig.Interface.PulseClass;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulseconfig.Serializer.SerializerHelpers;
-import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
+import com.pandapulsestudios.pulsecore.VariableAPI.API.VariableAPI;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -58,9 +58,9 @@ public class SaveableHashmap<K, V> {
         }else{
             var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classType);
             if(variableTest != null) configObject = variableTest.DeSerializeData(configObject);
-            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (K) ConfigDeSerializer.LoadConfigSingle(configObject, configObject);
+            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (K) ConfigDeSerializer.LoadConfigSingle(keyType, configObject, configObject);
             if(saveableType == StorageType.MONGO) return (K) MongoDeSerializer.LoadMongoSingle(keyType, configObject, configObject);
-            return (K) JSONDeSerializer.LoadJSONSingle(configObject, configObject);
+            return (K) JSONDeSerializer.LoadJSONSingle(keyType, configObject, configObject);
         }
     }
 
@@ -79,9 +79,9 @@ public class SaveableHashmap<K, V> {
         }else{
             var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classType);
             if(variableTest != null) configObject = variableTest.DeSerializeData(configObject);
-            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (V) ConfigDeSerializer.LoadConfigSingle(configObject, configObject);
+            if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) return (V) ConfigDeSerializer.LoadConfigSingle(dataType, configObject, configObject);
             if(saveableType == StorageType.MONGO) return (V) MongoDeSerializer.LoadMongoSingle(dataType, configObject, configObject);
-            return (V) JSONDeSerializer.LoadJSONSingle(configObject, configObject);
+            return (V) JSONDeSerializer.LoadJSONSingle(dataType, configObject, configObject);
         }
     }
 

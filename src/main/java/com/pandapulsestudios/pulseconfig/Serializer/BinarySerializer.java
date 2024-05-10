@@ -2,7 +2,6 @@ package com.pandapulsestudios.pulseconfig.Serializer;
 
 import com.pandapulsestudios.pulseconfig.Interface.*;
 import com.pandapulsestudios.pulseconfig.Objects.*;
-import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 import java.io.IOException;

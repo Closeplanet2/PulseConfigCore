@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="pulseconfig:jar">
-    <output-path>$USER_HOME$/Desktop/Guild Wars/plugins</output-path>
+    <output-path>$PROJECT_DIR$/../../_Servers/Paper Server 1.20.1/plugins</output-path>
     <root id="archive" name="pulseconfig.jar">
       <element id="module-output" name="pulseconfig" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-handler/4.1.82.Final/netty-handler-4.1.82.Final.jar" path-in-jar="/" />

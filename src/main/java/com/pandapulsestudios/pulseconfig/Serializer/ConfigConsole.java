@@ -7,7 +7,7 @@ import com.pandapulsestudios.pulseconfig.Interface.SaveName;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableArrayList;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableHashmap;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableLinkedHashMap;
-import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
+import com.pandapulsestudios.pulsecore.VariableAPI.API.VariableAPI;
 
 import java.util.Date;
 

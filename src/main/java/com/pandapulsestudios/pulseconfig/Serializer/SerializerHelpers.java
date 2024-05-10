@@ -5,7 +5,7 @@ import com.pandapulsestudios.pulseconfig.Interface.DontSave;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableArrayList;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableHashmap;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableLinkedHashMap;
-import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
+import com.pandapulsestudios.pulsecore.VariableAPI.API.VariableAPI;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

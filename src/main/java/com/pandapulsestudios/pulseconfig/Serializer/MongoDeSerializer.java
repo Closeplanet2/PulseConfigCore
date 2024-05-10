@@ -6,7 +6,7 @@ import com.pandapulsestudios.pulseconfig.Interface.CustomVariable;
 import com.pandapulsestudios.pulseconfig.Interface.PulseClass;
 import com.pandapulsestudios.pulseconfig.Interface.SaveName;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
-import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
+import com.pandapulsestudios.pulsecore.VariableAPI.API.VariableAPI;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -41,7 +41,6 @@ public class MongoDeSerializer {
 
     public static Object LoadMongoSingle(Class<?> classDataType, Object classData, Object configData) throws Exception {
         if(classData == null || configData == null){ return null; }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + classData.getClass().getSimpleName() + ":" + classDataType.getSimpleName());
 
         var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classDataType);
         if(SaveAbleInventory.class.isAssignableFrom(classDataType)){
@@ -64,11 +63,9 @@ public class MongoDeSerializer {
             return saveableLinkedHashMap;
         } else if(SaveableArrayList.class.isAssignableFrom(classDataType)) {
             var saveableArrayList = (SaveableArrayList) classData;
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "SaveableArrayList");
             saveableArrayList.DeSerialiseData(StorageType.MONGO, (List<Object>) configData);
             return saveableArrayList;
         } else if(CustomVariable.class.isAssignableFrom(classDataType)){
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "CustomVariable");
             var customVariable = (CustomVariable) classDataType.getConstructor().newInstance();
             var hashMap = new HashMap<Object, Object>();
             var document = (Document) configData;

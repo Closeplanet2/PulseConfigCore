@@ -6,7 +6,6 @@ import com.pandapulsestudios.pulseconfig.Serializer.MongoDeSerializer;
 import com.pandapulsestudios.pulseconfig.Interface.PulseClass;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulseconfig.Serializer.SerializerHelpers;
-import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,9 +39,9 @@ public class SaveableArrayList<E> {
                 arrayList.add((E) deSerialised);
                 pulseClas.AfterLoadConfig();
             }else{
-                if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) arrayList.add((E) ConfigDeSerializer.LoadConfigSingle(configObject, configObject));
+                if(saveableType == StorageType.CONFIG || saveableType == StorageType.BINARY) arrayList.add((E) ConfigDeSerializer.LoadConfigSingle(classType, configObject, configObject));
                 if(saveableType == StorageType.MONGO) arrayList.add((E) MongoDeSerializer.LoadMongoSingle(classType, configObject, configObject));
-                else arrayList.add((E) JSONDeSerializer.LoadJSONSingle(configObject, configObject));
+                if(saveableType == StorageType.JSON) arrayList.add((E) JSONDeSerializer.LoadJSONSingle(classType, configObject, configObject));
             }
         }
     }

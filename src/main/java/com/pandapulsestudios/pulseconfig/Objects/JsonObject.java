@@ -3,7 +3,7 @@ package com.pandapulsestudios.pulseconfig.Objects;
 import com.pandapulsestudios.pulseconfig.API.BinaryAPI;
 import com.pandapulsestudios.pulseconfig.API.JSONAPI;
 import com.pandapulsestudios.pulseconfig.Interface.PulseJSON;
-import com.pandapulsestudios.pulsecore.FileSystem.DirAPI;
+import com.pandapulsestudios.pulsecore.FileAPI.DirAPI;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 

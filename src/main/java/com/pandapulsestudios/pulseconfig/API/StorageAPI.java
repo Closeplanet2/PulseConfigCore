@@ -10,9 +10,8 @@ import com.pandapulsestudios.pulseconfig.Serializer.*;
 import com.pandapulsestudios.pulseconfig.Interface.PulseMongo;
 import com.pandapulsestudios.pulseconfig.Objects.MongoConnection;
 import com.pandapulsestudios.pulseconfig.Enum.StorageType;
-import com.pandapulsestudios.pulsecore.Chat.ChatAPI;
-import com.pandapulsestudios.pulsecore.Java.JavaAPI;
-import com.pandapulsestudios.pulsecore.Java.PulseAutoRegister;
+import com.pandapulsestudios.pulsecore.ChatAPI.Object.ChatBuilderAPI;
+import com.pandapulsestudios.pulsecore.JavaAPI.API.JavaAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,28 +28,30 @@ public class StorageAPI {
     }
 
     public static void RegisterStaticRaw(JavaPlugin javaPlugin, boolean debugLoad) throws Exception {
-        for(var autoRegisterClass : JavaAPI.ReturnAllAutoRegisterClasses(javaPlugin)){
-            if(PulseConfig.class.isAssignableFrom(autoRegisterClass)){
-                LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.CONFIG);
-                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Config Static: %s", autoRegisterClass.getSimpleName()));
-            }
-            if(PulseMongo.class.isAssignableFrom(autoRegisterClass)){
-                LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.MONGO);
-                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Mongo Static: %s", autoRegisterClass.getSimpleName()));
-            }
-            if(PulseJSON.class.isAssignableFrom(autoRegisterClass)){
-                LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.JSON);
-                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Json Static: %s", autoRegisterClass.getSimpleName()));
-            }
-            if(PulseBinary.class.isAssignableFrom(autoRegisterClass)){
-                LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.BINARY);
-                ChatAPI.chatBuilder().SendMessage(String.format("&8Registered Binary Static: %s", autoRegisterClass.getSimpleName()));
-            }
+        for(var autoRegisterClass : JavaAPI.ReturnAllAutoRegisterClasses(javaPlugin)) RegisterStaticRaw(autoRegisterClass, debugLoad);
+        ChatBuilderAPI.chatBuilder().SendMessage("&8Total Register STATIC_CONFIGS: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.size(), true);
+        ChatBuilderAPI.chatBuilder().SendMessage("&8Total Register STATIC_JSON: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.size(), true);
+        ChatBuilderAPI.chatBuilder().SendMessage("&8Total Register STATIC_MONGO: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.size(), true);
+        ChatBuilderAPI.chatBuilder().SendMessage("&8Total Register STATIC_BINARY: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.size(), true);
+    }
+
+    public static void RegisterStaticRaw(Class<?> autoRegisterClass, boolean debugLoad) throws Exception {
+        if(PulseConfig.class.isAssignableFrom(autoRegisterClass)){
+            LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.CONFIG);
+            ChatBuilderAPI.chatBuilder().SendMessage(String.format("&8Registered Config Static: %s", autoRegisterClass.getSimpleName()), true);
         }
-        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_CONFIGS: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.size());
-        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_JSON: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.size());
-        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_MONGO: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.size());
-        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_BINARY: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.size());
+        if(PulseMongo.class.isAssignableFrom(autoRegisterClass)){
+            LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.MONGO);
+            ChatBuilderAPI.chatBuilder().SendMessage(String.format("&8Registered Mongo Static: %s", autoRegisterClass.getSimpleName()), true);
+        }
+        if(PulseJSON.class.isAssignableFrom(autoRegisterClass)){
+            LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.JSON);
+            ChatBuilderAPI.chatBuilder().SendMessage(String.format("&8Registered Json Static: %s", autoRegisterClass.getSimpleName()), true);
+        }
+        if(PulseBinary.class.isAssignableFrom(autoRegisterClass)){
+            LoadRaw(autoRegisterClass.getConstructor().newInstance(), debugLoad, StorageType.BINARY);
+            ChatBuilderAPI.chatBuilder().SendMessage(String.format("&8Registered Binary Static: %s", autoRegisterClass.getSimpleName()), true);
+        }
     }
 
     public static Object ReturnStatic(Class<?> autoRegisterClass, StorageType storageType, boolean createNewInstance){
@@ -94,19 +95,19 @@ public class StorageAPI {
 
     public static void DisplayRaw(Object storageObject, StorageType... storageTypes) throws Exception {
         if(PulseConfig.class.isAssignableFrom(storageObject.getClass()) && Arrays.asList(storageTypes).contains(StorageType.CONFIG)){
-            ChatAPI.chatBuilder().SendMessage(ConfigConsole.ConsoleOutput((PulseConfig) storageObject));
+            ChatBuilderAPI.chatBuilder().SendMessage(ConfigConsole.ConsoleOutput((PulseConfig) storageObject), true);
         }
 
         if(PulseMongo.class.isAssignableFrom(storageObject.getClass()) && Arrays.asList(storageTypes).contains(StorageType.MONGO)){
-            ChatAPI.chatBuilder().SendMessage(MongoConsole.ConsoleOutput((PulseMongo) storageObject));
+            ChatBuilderAPI.chatBuilder().SendMessage(MongoConsole.ConsoleOutput((PulseMongo) storageObject), true);
         }
 
         if(PulseBinary.class.isAssignableFrom(storageObject.getClass()) && Arrays.asList(storageTypes).contains(StorageType.BINARY)){
-            ChatAPI.chatBuilder().SendMessage(BinaryConsole.ConsoleOutput((PulseBinary) storageObject));
+            ChatBuilderAPI.chatBuilder().SendMessage(BinaryConsole.ConsoleOutput((PulseBinary) storageObject), true);
         }
 
         if(PulseJSON.class.isAssignableFrom(storageObject.getClass()) && Arrays.asList(storageTypes).contains(StorageType.JSON)){
-            ChatAPI.chatBuilder().SendMessage(JSONConsole.ConsoleOutput((PulseJSON) storageObject));
+            ChatBuilderAPI.chatBuilder().SendMessage(JSONConsole.ConsoleOutput((PulseJSON) storageObject), true);
         }
     }
 
@@ -140,10 +141,10 @@ public class StorageAPI {
             jsonObject.DeleteConfig(pulseJSON);
             com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.remove(storageObject.getClass());
         }
-        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_CONFIGS: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.size());
-        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_JSON: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.size());
-        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_MONGO: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.size());
-        ChatAPI.chatBuilder().SendMessage("&8Total Register STATIC_BINARY: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.size());
+        ChatBuilderAPI.chatBuilder().SendMessage("&8Total Register STATIC_CONFIGS: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_CONFIGS.size(), true);
+        ChatBuilderAPI.chatBuilder().SendMessage("&8Total Register STATIC_JSON: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_JSON.size(), true);
+        ChatBuilderAPI.chatBuilder().SendMessage("&8Total Register STATIC_MONGO: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_MONGO.size(), true);
+        ChatBuilderAPI.chatBuilder().SendMessage("&8Total Register STATIC_BINARY: " + com.pandapulsestudios.pulseconfig.PulseConfig.STATIC_BINARY.size(), true);
     }
 
     public static void Load(Object storageObject, boolean debugSave, StorageType... storageTypes){

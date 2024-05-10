@@ -10,7 +10,7 @@ import com.pandapulsestudios.pulseconfig.Objects.SaveAbleInventory;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableArrayList;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableHashmap;
 import com.pandapulsestudios.pulseconfig.Objects.SaveableLinkedHashMap;
-import com.pandapulsestudios.pulsecore.Data.API.VariableAPI;
+import com.pandapulsestudios.pulsecore.VariableAPI.API.VariableAPI;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 import java.util.ArrayList;

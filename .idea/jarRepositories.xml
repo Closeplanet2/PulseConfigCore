@@ -7,19 +7,24 @@
       <option name="url" value="https://oss.sonatype.org/content/groups/public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="github" />
+      <option name="name" value="github" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/AutoStructurePlugin" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="spigotmc-repo" />
       <option name="name" value="spigotmc-repo" />
       <option name="url" value="https://hub.spigotmc.org/nexus/content/repositories/snapshots/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="github" />
-      <option name="name" value="github" />
-      <option name="url" value="https://maven.pkg.github.com/closeplanet2/SpawnKits" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="pulsecore" />
       <option name="name" value="pulsecore" />
       <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseCore" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="github" />
+      <option name="name" value="github" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/SpawnKits" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />

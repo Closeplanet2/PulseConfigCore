@@ -4,7 +4,7 @@ import com.pandapulsestudios.pulseconfig.Enum.StorageType;
 import com.pandapulsestudios.pulseconfig.Interface.StoragePath;
 import com.pandapulsestudios.pulseconfig.Interface.PulseConfig;
 import com.pandapulsestudios.pulseconfig.Serializer.SerializerHelpers;
-import com.pandapulsestudios.pulsecore.FileSystem.DirAPI;
+import com.pandapulsestudios.pulsecore.FileAPI.DirAPI;
 
 import java.io.File;
 import java.util.HashMap;
