@@ -40,7 +40,7 @@ public class ConfigDeSerializer {
 
     public static Object LoadConfigSingle(Class<?> classDataType, Object classData, Object configData) throws Exception {
         if(classData == null || configData == null) return null;
-        var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classData.getClass());
+        var variableTest = VariableAPI.RETURN_TEST_FROM_TYPE(classDataType);
         if(ConfigurationSerialization.class.isAssignableFrom(classDataType)){
             return configData;
         }else if(PulseClass.class.isAssignableFrom(classDataType)){

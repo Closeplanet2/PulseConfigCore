@@ -41,5 +41,10 @@
       <option name="name" value="central" />
       <option name="url" value="https://repo1.maven.org/maven2" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="pulsecoreplugin" />
+      <option name="name" value="pulsecoreplugin" />
+      <option name="url" value="https://maven.pkg.github.com/closeplanet2/PulseCoreAbstract" />
+    </remote-repository>
   </component>
 </project>
