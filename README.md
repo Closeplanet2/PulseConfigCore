@@ -18,6 +18,6 @@ A Bukkit/Spigot API to allow for the ease and accesibility of spigot creation!
 <dependency>
       <groupId>com.pandapulsestudios</groupId>
       <artifactId>pulseconfig</artifactId>
-      <version>1.4.5-a</version>
+      <version>2.0.3</version>
 </dependency>
 ```
